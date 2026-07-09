@@ -1,0 +1,4 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'; import ServiceCard from '@/components/ServiceCard.astro'; import CTASection from '@/components/CTASection.astro'; import { servicePages } from '@/data/services';
+---
+<BaseLayout title="Servicios informáticos en La Zubia y Granada | Flopitec" description="Servicios de reparación, mantenimiento, empresas, marketing digital, venta y reciclaje electrónico." path="/servicios/"><section class="section"><div class="container"><p class="eyebrow">Servicios</p><h1 class="mt-3 text-4xl font-black">Servicios informáticos para particulares y empresas</h1><p class="mt-4 text-[var(--muted)]">Contenido inicial V1 con rutas preparadas y enfoque prudente.</p><div class="mt-8 grid-auto">{servicePages.map(service=><ServiceCard service={service}/>)}</div></div></section><CTASection/></BaseLayout>

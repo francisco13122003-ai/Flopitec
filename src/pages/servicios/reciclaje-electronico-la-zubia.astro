@@ -1,0 +1,7 @@
+---
+import ServiceLayout from '@/layouts/ServiceLayout.astro';
+import { getServiceBySlug } from '@/data/services';
+const service = getServiceBySlug('reciclaje-electronico-la-zubia');
+if (!service) throw new Error('Servicio no encontrado');
+---
+<ServiceLayout service={service} />
