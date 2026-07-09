@@ -1,0 +1,19 @@
+{
+  "name": "flopitec-web-publica",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "latest",
+    "@tailwindcss/vite": "latest",
+    "astro": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
+  },
+  "devDependencies": {}
+}

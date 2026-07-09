@@ -1,0 +1,1 @@
+export default {content:['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],theme:{extend:{fontFamily:{sans:['Inter','ui-sans-serif','system-ui','sans-serif']},colors:{flopi:{orange:'#f97316',black:'#080808',green:'#2f7d4f'}}}},plugins:[]}

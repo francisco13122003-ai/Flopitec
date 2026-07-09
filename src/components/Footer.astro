@@ -1,0 +1,5 @@
+---
+import { business, getActiveSchedule } from '@/data/business';
+const schedule = getActiveSchedule();
+---
+<footer class="border-t border-[var(--line)] bg-[var(--soft)] py-10"><div class="container grid gap-8 md:grid-cols-3"><div><strong>{business.commercialName}</strong><p class="mt-2 text-[var(--muted)]">{business.slogan}. Servicio técnico local en La Zubia y Granada.</p></div><div><h2 class="text-base font-bold">Contacto</h2><p>{business.address.full}</p><p><a href={business.phone.mainHref}>{business.phone.main}</a> · <a href={business.emailHref}>{business.email}</a></p></div><div><h2 class="text-base font-bold">Horario activo</h2><p class="font-semibold">{schedule.name}</p>{schedule.lines.map(line=><p class="text-sm text-[var(--muted)]">{line}</p>)}</div></div><div class="container mt-8 flex flex-wrap gap-4 text-sm text-[var(--muted)]"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a></div></footer>

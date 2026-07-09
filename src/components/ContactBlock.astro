@@ -1,0 +1,5 @@
+---
+import { business, getActiveSchedule } from '@/data/business';
+const schedule = getActiveSchedule();
+---
+<section class="section"><div class="container grid gap-4 md:grid-cols-2"><div class="card p-6"><h2 class="text-2xl font-black">Contacto rápido</h2><p class="mt-3">{business.address.full}</p><p><a href={business.phone.mainHref}>{business.phone.main}</a> · <a href={business.phone.secondaryHref}>{business.phone.secondary}</a></p><p><a href={business.emailHref}>{business.email}</a></p><div class="mt-5 flex flex-wrap gap-3"><a class="btn btn-primary" href={business.whatsapp.url}>WhatsApp</a><a class="btn" href={business.mapsUrl}>Google Maps</a></div></div><div class="card p-6"><h2 class="text-2xl font-black">Horario activo</h2><p class="mt-2 font-bold">{schedule.name}</p><p class="text-sm text-[var(--muted)]">{schedule.period}</p>{schedule.lines.map(line=><p class="mt-2">{line}</p>)}</div></div></section>
