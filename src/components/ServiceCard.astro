@@ -1,4 +1,11 @@
 ---
 const { service } = Astro.props;
 ---
-<article class="card p-6"><p class="eyebrow">{service.category}</p><h2 class="mt-3 text-xl font-black"><a href={`/servicios/${service.slug}/`}>{service.title}</a></h2><p class="mt-3 text-[var(--muted)]">{service.short}</p><a class="mt-5 inline-flex font-bold text-flopi-orange" href={`/servicios/${service.slug}/`}>Ver servicio →</a></article>
+<article class="service-card card">
+  <p class="service-card__category eyebrow">{service.category}</p>
+  <h2 class="service-card__title">
+    <a href={`/servicios/${service.slug}/`}>{service.title}</a>
+  </h2>
+  <p class="service-card__description">{service.short}</p>
+  <a class="service-card__cta" href={`/servicios/${service.slug}/`}>Ver servicio →</a>
+</article>
