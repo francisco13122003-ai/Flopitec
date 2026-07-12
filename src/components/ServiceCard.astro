@@ -1,11 +1,20 @@
 ---
 const { service } = Astro.props;
+const href = `/servicios/${service.slug}/`;
 ---
-<article class="service-card card">
-  <p class="service-card__category eyebrow">{service.category}</p>
-  <h2 class="service-card__title">
-    <a href={`/servicios/${service.slug}/`}>{service.title}</a>
-  </h2>
-  <p class="service-card__description">{service.short}</p>
-  <a class="service-card__cta" href={`/servicios/${service.slug}/`}>Ver servicio →</a>
-</article>
+<a
+  class="service-card card"
+  href={href}
+  aria-label={`Descubrir más sobre ${service.title}`}
+  style={`--service-image: url('${service.image}')`}
+>
+  <span class="service-card__media" aria-hidden="true"></span>
+  <span class="service-card__overlay" aria-hidden="true"></span>
+  <span class="service-card__content">
+    <span class="service-card__title">{service.title}</span>
+    <span class="service-card__featured">
+      {service.featured.map((item) => <span>• {item}</span>)}
+    </span>
+    <span class="service-card__cta">Descubrir más →</span>
+  </span>
+</a>

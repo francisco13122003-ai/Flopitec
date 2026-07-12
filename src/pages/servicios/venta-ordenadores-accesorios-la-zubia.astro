@@ -1,7 +1,0 @@
----
-import ServiceLayout from '@/layouts/ServiceLayout.astro';
-import { getServiceBySlug } from '@/data/services';
-const service = getServiceBySlug('venta-ordenadores-accesorios-la-zubia');
-if (!service) throw new Error('Servicio no encontrado');
----
-<ServiceLayout service={service} />
