@@ -2,10 +2,12 @@
 import { navigation } from '@/data/navigation';
 import { business } from '@/data/business';
 ---
-<header class="sticky top-0 z-40 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_88%,transparent)] backdrop-blur">
-  <nav class="container flex items-center justify-between py-4" aria-label="Menú principal">
-    <a href="/" class="font-black tracking-tight"><span class="text-flopi-orange">Flopi</span>tec</a>
-    <div class="hidden gap-5 md:flex">{navigation.map((item)=><a class="text-sm font-semibold text-[var(--muted)] hover:text-[var(--ink)]" href={item.href}>{item.label}</a>)}</div>
-    <a class="btn btn-primary !py-2" href={business.whatsapp.url}>WhatsApp</a>
+<header class="sticky top-0 z-40 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_92%,transparent)] backdrop-blur">
+  <nav class="container flex flex-wrap items-center justify-between gap-3 py-3" aria-label="Menú principal">
+    <a href="/" class="rounded-sm text-lg font-black tracking-tight" aria-label="Flopitec Servicios Informáticos - Inicio"><span class="text-flopi-orange">Flopi</span>tec</a>
+    <div class="order-3 flex w-full gap-2 overflow-x-auto pb-1 md:order-2 md:w-auto md:flex-wrap md:justify-center md:overflow-visible md:pb-0">
+      {navigation.map((item)=><a class="whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold text-[var(--muted)] hover:bg-[var(--soft)] hover:text-[var(--ink)]" href={item.href}>{item.label}</a>)}
+    </div>
+    <a class="btn btn-primary order-2 !px-4 !py-2 text-sm md:order-3" href={business.whatsapp.url} aria-label="Contactar con Flopitec por WhatsApp">WhatsApp</a>
   </nav>
 </header>
