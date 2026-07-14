@@ -13,7 +13,7 @@ const path = `/servicios/${service.slug}/`;
 const title = `${service.title} | Servicios Flopitec`;
 const description = `${service.phrase} Servicios de ${service.title.toLowerCase()} en Flopitec Servicios Informáticos.`;
 ---
-<BaseLayout title={title} description={description} path={path}>
+<BaseLayout title={title} description={description} path={path} backgroundDesktop={service.image} backgroundMobile={service.image}>
   <Breadcrumbs items={[{ label: 'Servicios', href: '/servicios/' }, { label: service.title, href: path }]} />
   <article class="section">
     <div class="container">
