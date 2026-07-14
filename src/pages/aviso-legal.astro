@@ -1,4 +1,107 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'; import { business } from '@/data/business';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { business } from '@/data/business';
 ---
-<BaseLayout title="Aviso legal | Flopitec" description="Aviso legal base de Flopitec pendiente de revisión profesional." path="/aviso-legal/"><section class="section"><div class="container max-w-3xl"><h1 class="text-4xl font-black">Aviso legal</h1><p class="mt-4 text-[var(--muted)]">Texto base pendiente de revisión profesional antes de publicación definitiva.</p><h2 class="mt-8 text-2xl font-black">Responsable</h2><p>{business.legalName} · NIF {business.nif}</p><p>{business.address.full}</p><p><a href={business.emailHref}>{business.email}</a></p><h2 class="mt-8 text-2xl font-black">Uso de la web</h2><p class="text-[var(--muted)]">La información es corporativa e informativa. No constituye asesoramiento legal definitivo.</p><div class="mt-8"><a class="btn btn-primary" href="/contacto/">Contactar con Flopitec</a></div></div></section></BaseLayout>
+
+<BaseLayout
+  title="Aviso legal | Flopitec"
+  description="Información legal y condiciones de uso del sitio web de Flopitec Servicios Informáticos."
+  path="/aviso-legal/"
+>
+  <section class="section legal-page">
+    <div class="container legal-container">
+      <header class="legal-header">
+        <h1>Aviso legal</h1>
+        <p>
+          En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico,
+          se facilita la siguiente información relativa al titular y al uso de este sitio web.
+        </p>
+      </header>
+
+      <div class="legal-content">
+        <section class="legal-section" aria-labelledby="titular-sitio-web">
+          <h2 id="titular-sitio-web">Titular del sitio web</h2>
+          <dl class="legal-data-list">
+            <div><dt>Nombre comercial:</dt><dd>{business.commercialName}</dd></div>
+            <div><dt>Titular:</dt><dd>{business.legalName}</dd></div>
+            <div><dt>NIF:</dt><dd>{business.nif}</dd></div>
+            <div><dt>Domicilio:</dt><dd>{business.address.full}</dd></div>
+            <div><dt>Correo electrónico:</dt><dd><a href={business.emailHref}>{business.email}</a></dd></div>
+            <div>
+              <dt>Teléfono:</dt>
+              <dd><a href={business.phone.mainHref}>{business.phone.main}</a> · <a href={business.phone.secondaryHref}>{business.phone.secondary}</a></dd>
+            </div>
+            <div><dt>Sitio web:</dt><dd>flopitec.com</dd></div>
+          </dl>
+        </section>
+
+        <section class="legal-section" aria-labelledby="objeto-sitio-web">
+          <h2 id="objeto-sitio-web">Objeto del sitio web</h2>
+          <p>Este sitio web tiene como finalidad informar sobre los servicios de Flopitec, entre ellos la reparación y mantenimiento de equipos, el soporte informático y las soluciones tecnológicas, de marketing y comunicación dirigidas a particulares, autónomos y empresas.</p>
+          <p>La web también facilita distintas vías de contacto para solicitar información, consultar disponibilidad o plantear una necesidad relacionada con los servicios ofrecidos.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="condiciones-uso">
+          <h2 id="condiciones-uso">Condiciones de uso</h2>
+          <p>El acceso y la navegación por este sitio web implican la aceptación de las presentes condiciones. La persona usuaria se compromete a utilizar la web, sus contenidos y sus enlaces de forma lícita, responsable y respetuosa.</p>
+          <p>No está permitido utilizar el sitio para realizar actividades ilícitas, introducir software malicioso, intentar acceder sin autorización a sus sistemas o realizar actuaciones que puedan perjudicar su funcionamiento o a terceros.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="informacion-disponibilidad">
+          <h2 id="informacion-disponibilidad">Información y disponibilidad</h2>
+          <p>Flopitec procura que la información publicada sea clara, correcta y esté actualizada. No obstante, los contenidos pueden modificarse cuando sea necesario y no constituyen por sí solos un presupuesto, diagnóstico técnico ni compromiso contractual.</p>
+          <p>No puede garantizarse que la web esté disponible de forma ininterrumpida o libre de errores técnicos, aunque se adoptarán medidas razonables para mantener su correcto funcionamiento y corregir las incidencias detectadas.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="propiedad-intelectual-industrial">
+          <h2 id="propiedad-intelectual-industrial">Propiedad intelectual e industrial</h2>
+          <p>Los textos, diseños, imágenes, elementos gráficos, logotipos, estructura y demás contenidos de este sitio pertenecen a Flopitec o se utilizan con la autorización o licencia correspondiente, salvo que se indique lo contrario.</p>
+          <p>No se permite su reproducción, distribución, transformación, explotación comercial o utilización pública sin autorización previa, excepto en los casos permitidos por la legislación aplicable.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="enlaces-externos">
+          <h2 id="enlaces-externos">Enlaces externos</h2>
+          <p>La web puede incluir enlaces a servicios externos, como WhatsApp o Google Maps. Al acceder a ellos, la persona usuaria abandona el entorno gestionado por Flopitec y queda sujeta a las condiciones y políticas de privacidad del proveedor correspondiente.</p>
+          <p>Flopitec no controla ni asume responsabilidad por el contenido, la disponibilidad o las prácticas de privacidad de páginas y plataformas externas.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="responsabilidad">
+          <h2 id="responsabilidad">Responsabilidad</h2>
+          <p>Flopitec no será responsable del uso indebido que se realice de la información de esta web, de daños derivados de actuaciones ajenas a su control razonable ni de contenidos alojados en servicios externos enlazados desde el sitio.</p>
+          <p>Nada de lo anterior limita los derechos que la legislación reconoce a consumidores y usuarios ni excluye responsabilidades que no puedan limitarse legalmente.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="legislacion-aplicable">
+          <h2 id="legislacion-aplicable">Legislación aplicable</h2>
+          <p>Este sitio web se rige por la legislación española. Cualquier controversia se resolverá ante los juzgados y tribunales que resulten competentes conforme a la normativa aplicable, respetando en todo caso los derechos de consumidores y usuarios.</p>
+        </section>
+
+        <section class="legal-section" aria-label="Actualización">
+          <p><strong>Última actualización:</strong> julio de 2026.</p>
+        </section>
+      </div>
+
+      <div class="legal-cta">
+        <a class="btn btn-primary" href="/contacto/">Contactar con Flopitec</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-container { max-width: 56rem; }
+  .legal-header { margin-bottom: 2.75rem; }
+  .legal-header h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.04em; }
+  .legal-header p, .legal-section p, .legal-section li, .legal-data-list { color: var(--muted); line-height: 1.8; }
+  .legal-header p { margin-top: 1.25rem; font-size: 1.08rem; }
+  .legal-section { padding: 2rem 0; border-top: 1px solid var(--line); }
+  .legal-section h2 { margin-bottom: 1rem; color: var(--text); font-size: clamp(1.35rem, 3vw, 1.75rem); font-weight: 900; letter-spacing: -0.02em; }
+  .legal-section p + p { margin-top: 1rem; }
+  .legal-data-list { display: grid; gap: 0.75rem; margin: 0; }
+  .legal-data-list div { display: grid; gap: 0.2rem; }
+  .legal-data-list dt { color: var(--text); font-weight: 800; }
+  .legal-data-list dd { margin: 0; }
+  .legal-page a:not(.btn) { color: var(--accent); text-decoration: underline; text-underline-offset: 0.22em; }
+  .legal-cta { margin-top: 1.5rem; }
+  @media (min-width: 640px) { .legal-data-list div { grid-template-columns: 12rem 1fr; gap: 1rem; } }
+</style>

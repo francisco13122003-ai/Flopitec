@@ -1,4 +1,152 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'; import { business } from '@/data/business';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { business } from '@/data/business';
 ---
-<BaseLayout title="Privacidad | Flopitec" description="Información básica de privacidad pendiente de revisión profesional." path="/privacidad/"><section class="section"><div class="container max-w-3xl"><h1 class="text-4xl font-black">Privacidad</h1><p class="mt-4 text-[var(--muted)]">Texto base pendiente de revisión profesional antes de publicación definitiva.</p><h2 class="mt-8 text-2xl font-black">Responsable</h2><p>{business.legalName} · NIF {business.nif}</p><p>{business.address.full}</p><p><a href={business.emailHref}>{business.email}</a></p><h2 class="mt-8 text-2xl font-black">Contacto</h2><p class="text-[var(--muted)]">Esta V1 no incluye formulario. Los enlaces de contacto abren teléfono, email, WhatsApp o mapas.</p><div class="mt-8"><a class="btn btn-primary" href="/contacto/">Ver vías de contacto</a></div></div></section></BaseLayout>
+
+<BaseLayout
+  title="Política de privacidad | Flopitec"
+  description="Información sobre el tratamiento de datos personales y los derechos de las personas usuarias de Flopitec."
+  path="/privacidad/"
+>
+  <section class="section legal-page">
+    <div class="container legal-container">
+      <header class="legal-header">
+        <h1>Política de privacidad</h1>
+        <p>En esta política explicamos cómo se tratan los datos personales cuando una persona contacta con Flopitec o utiliza las distintas vías disponibles en el sitio web.</p>
+      </header>
+
+      <div class="legal-content">
+        <section class="legal-section" aria-labelledby="responsable-tratamiento">
+          <h2 id="responsable-tratamiento">Responsable del tratamiento</h2>
+          <dl class="legal-data-list">
+            <div><dt>Responsable:</dt><dd>{business.legalName}</dd></div>
+            <div><dt>Nombre comercial:</dt><dd>{business.commercialName}</dd></div>
+            <div><dt>NIF:</dt><dd>{business.nif}</dd></div>
+            <div><dt>Domicilio:</dt><dd>{business.address.full}</dd></div>
+            <div><dt>Correo electrónico:</dt><dd><a href={business.emailHref}>{business.email}</a></dd></div>
+            <div>
+              <dt>Teléfono:</dt>
+              <dd><a href={business.phone.mainHref}>{business.phone.main}</a> · <a href={business.phone.secondaryHref}>{business.phone.secondary}</a></dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="legal-section" aria-labelledby="datos-tratados">
+          <h2 id="datos-tratados">Qué datos podemos tratar</h2>
+          <p>La web no dispone actualmente de formularios, cuentas de usuario, newsletter, sistemas publicitarios ni herramientas de analítica de comportamiento.</p>
+          <p>Flopitec puede tratar los datos que una persona facilite voluntariamente al contactar por teléfono, correo electrónico, WhatsApp o de manera presencial. Estos datos pueden incluir:</p>
+          <ul>
+            <li>Nombre y datos de contacto.</li>
+            <li>Contenido de la consulta o comunicación.</li>
+            <li>Información sobre el equipo, dispositivo, servicio o incidencia.</li>
+            <li>Datos necesarios para elaborar un presupuesto o prestar un servicio.</li>
+            <li>Datos administrativos, contractuales o de facturación cuando exista una relación comercial.</li>
+          </ul>
+          <p>El proveedor de alojamiento y seguridad puede generar registros técnicos mínimos, como dirección IP, fecha y hora de acceso, navegador o información relacionada con la seguridad y el funcionamiento de la web.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="finalidades-base-juridica">
+          <h2 id="finalidades-base-juridica">Finalidades y base jurídica</h2>
+          <div class="purpose-list">
+            <div><h3>Finalidad</h3><p>Atender consultas, solicitudes de información, citas o presupuestos.</p><h3>Base jurídica</h3><p>La aplicación de medidas precontractuales solicitadas por la persona interesada o, según el caso, su consentimiento.</p></div>
+            <div><h3>Finalidad</h3><p>Gestionar reparaciones, encargos, servicios, relaciones comerciales y atención posterior.</p><h3>Base jurídica</h3><p>La ejecución de un contrato o de medidas previas a su celebración.</p></div>
+            <div><h3>Finalidad</h3><p>Cumplir obligaciones administrativas, contables, fiscales o legales.</p><h3>Base jurídica</h3><p>El cumplimiento de obligaciones legales aplicables a Flopitec.</p></div>
+            <div><h3>Finalidad</h3><p>Mantener la seguridad, prevenir usos fraudulentos y proteger el funcionamiento de la web.</p><h3>Base jurídica</h3><p>El interés legítimo en garantizar la seguridad de los sistemas y servicios.</p></div>
+          </div>
+          <p>Flopitec no realiza decisiones automatizadas ni elabora perfiles de las personas usuarias.</p>
+          <p>No se enviarán comunicaciones comerciales por medios electrónicos salvo que hayan sido solicitadas, exista una relación previa que lo permita legalmente o se haya obtenido el consentimiento correspondiente.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="destinatarios-datos">
+          <h2 id="destinatarios-datos">Destinatarios de los datos</h2>
+          <p>Los datos no se venden ni se ceden a terceros con fines publicitarios.</p>
+          <p>Podrán acceder a ellos proveedores que sean necesarios para prestar o gestionar los servicios, como alojamiento y seguridad web, correo electrónico, comunicaciones, asesoría, contabilidad o soporte tecnológico. Estos proveedores deberán tratar la información únicamente siguiendo las instrucciones correspondientes y conforme a la normativa aplicable.</p>
+          <p>También podrán comunicarse datos a administraciones públicas, juzgados, tribunales u otras autoridades cuando exista una obligación legal.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="servicios-externos">
+          <h2 id="servicios-externos">Servicios externos</h2>
+          <p>La web contiene enlaces que permiten abrir servicios de terceros, especialmente WhatsApp y Google Maps. Estos servicios no están gestionados por Flopitec y aplican sus propias condiciones y políticas de privacidad.</p>
+          <p>Al pulsar estos enlaces, el proveedor externo puede tratar datos técnicos, identificadores, información de cuenta o datos de ubicación conforme a su propia configuración y política.</p>
+          <p>Cuando un proveedor trate datos fuera del Espacio Económico Europeo, deberá aplicar los mecanismos y garantías previstos por la normativa de protección de datos.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="plazo-conservacion">
+          <h2 id="plazo-conservacion">Plazo de conservación</h2>
+          <p>Los datos de una consulta se conservarán durante el tiempo necesario para responderla y realizar el seguimiento correspondiente. Cuando la consulta no dé lugar a una relación comercial, podrán mantenerse durante un periodo razonable para atender posibles comunicaciones o responsabilidades y después se eliminarán o bloquearán.</p>
+          <p>Los datos relacionados con clientes, reparaciones, presupuestos, contratos, facturación o servicios se conservarán mientras exista la relación y, posteriormente, durante los plazos exigidos por la normativa aplicable o necesarios para atender posibles responsabilidades.</p>
+          <p>Los registros técnicos y de seguridad se conservarán únicamente durante el tiempo necesario para garantizar el funcionamiento y la protección de la web.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="derechos-interesados">
+          <h2 id="derechos-interesados">Derechos de las personas interesadas</h2>
+          <p>La persona interesada puede solicitar:</p>
+          <ul>
+            <li>Acceso a sus datos personales.</li>
+            <li>Rectificación de datos incorrectos o incompletos.</li>
+            <li>Supresión cuando los datos ya no sean necesarios.</li>
+            <li>Limitación del tratamiento en los casos legalmente previstos.</li>
+            <li>Oposición a determinados tratamientos.</li>
+            <li>Portabilidad cuando resulte aplicable.</li>
+            <li>Retirada del consentimiento en cualquier momento, sin afectar a la licitud del tratamiento anterior.</li>
+          </ul>
+          <p>Para ejercer estos derechos puede escribir a:</p>
+          <p><a href={business.emailHref}>{business.email}</a></p>
+          <p>Debe indicar en el asunto:</p>
+          <p><strong>Protección de datos</strong></p>
+          <p>La solicitud deberá explicar claramente el derecho que desea ejercer. Solo podrá solicitarse información adicional para confirmar la identidad cuando resulte razonablemente necesario.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="reclamaciones">
+          <h2 id="reclamaciones">Reclamaciones</h2>
+          <p>Si una persona considera que sus datos no han sido tratados correctamente, puede dirigirse primero a Flopitec mediante el correo indicado anteriormente.</p>
+          <p>También tiene derecho a presentar una reclamación ante la <a href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">Agencia Española de Protección de Datos</a>.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="datos-menores">
+          <h2 id="datos-menores">Datos de menores</h2>
+          <p>Los servicios y contenidos de esta web no están dirigidos específicamente a menores de edad. Los menores no deben facilitar datos personales sin la autorización de sus padres, madres o representantes legales cuando dicha autorización sea necesaria.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="seguridad-informacion">
+          <h2 id="seguridad-informacion">Seguridad de la información</h2>
+          <p>Flopitec aplica medidas razonables de carácter técnico y organizativo para proteger los datos personales frente a accesos no autorizados, pérdida, alteración o divulgación.</p>
+          <p>No obstante, ningún sistema conectado a Internet puede garantizar una seguridad absoluta, por lo que se recomienda no enviar información innecesaria o especialmente sensible mediante canales de contacto ordinarios.</p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="cambios-politica">
+          <h2 id="cambios-politica">Cambios en esta política</h2>
+          <p>Esta política podrá actualizarse cuando cambien los servicios, los tratamientos realizados o la normativa aplicable. La versión publicada en esta página será la vigente en cada momento.</p>
+          <p><strong>Última actualización:</strong> julio de 2026.</p>
+        </section>
+      </div>
+
+      <div class="legal-cta">
+        <a class="btn btn-primary" href="/contacto/">Ver vías de contacto</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-container { max-width: 56rem; }
+  .legal-header { margin-bottom: 2.75rem; }
+  .legal-header h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.04em; }
+  .legal-header p, .legal-section p, .legal-section li, .legal-data-list { color: var(--muted); line-height: 1.8; }
+  .legal-header p { margin-top: 1.25rem; font-size: 1.08rem; }
+  .legal-section { padding: 2rem 0; border-top: 1px solid var(--line); }
+  .legal-section h2 { margin-bottom: 1rem; color: var(--text); font-size: clamp(1.35rem, 3vw, 1.75rem); font-weight: 900; letter-spacing: -0.02em; }
+  .legal-section h3 { margin-top: 1rem; color: var(--text); font-size: 0.95rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; }
+  .legal-section p + p, .legal-section ul + p, .purpose-list + p { margin-top: 1rem; }
+  .legal-section ul { margin: 1rem 0 0; padding-left: 1.25rem; }
+  .legal-section li + li { margin-top: 0.45rem; }
+  .legal-data-list { display: grid; gap: 0.75rem; margin: 0; }
+  .legal-data-list div { display: grid; gap: 0.2rem; }
+  .legal-data-list dt { color: var(--text); font-weight: 800; }
+  .legal-data-list dd { margin: 0; }
+  .purpose-list { display: grid; gap: 1rem; margin: 1rem 0 0; }
+  .purpose-list > div { border-left: 3px solid var(--accent); padding-left: 1rem; }
+  .legal-page a:not(.btn) { color: var(--accent); text-decoration: underline; text-underline-offset: 0.22em; }
+  .legal-cta { margin-top: 1.5rem; }
+  @media (min-width: 640px) { .legal-data-list div { grid-template-columns: 12rem 1fr; gap: 1rem; } }
+</style>
