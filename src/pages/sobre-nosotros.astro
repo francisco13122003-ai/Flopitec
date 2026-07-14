@@ -1,4 +1,227 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'; import CTASection from '@/components/CTASection.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { business } from '@/data/business';
+
+const trustCards = [
+  {
+    title: 'Desde 2001',
+    text: 'Más de dos décadas dedicadas al servicio técnico y la reparación.',
+  },
+  {
+    title: 'Particulares y empresas',
+    text: 'Atendemos desde averías domésticas hasta necesidades informáticas profesionales.',
+  },
+  {
+    title: 'Taller físico en La Zubia',
+    text: 'Un espacio real donde recibimos, revisamos y reparamos los equipos.',
+  },
+  {
+    title: 'Trato directo',
+    text: 'Hablas con personas que conocen tu caso, sin intermediarios innecesarios.',
+  },
+];
+
+const workCards = [
+  {
+    title: 'Escuchamos y revisamos',
+    text: 'Empezamos entendiendo el problema y comprobando el estado real del equipo.',
+  },
+  {
+    title: 'Te explicamos qué ocurre',
+    text: 'Evitamos los tecnicismos innecesarios para que entiendas la avería y lo que se va a realizar.',
+  },
+  {
+    title: 'Recomendamos solo lo necesario',
+    text: 'No proponemos cambios o componentes que no aporten una mejora real a tu caso.',
+  },
+  {
+    title: 'Te informamos del coste',
+    text: 'Siempre que el diagnóstico lo permite, facilitamos presupuesto antes de reparar. Algunas averías requieren pruebas técnicas para poder confirmarlas.',
+  },
+];
+
+const workshopImages = [
+  {
+    src: '/images/flopitec-fachada.webp',
+    alt: 'Fachada del taller de Flopitec en La Zubia',
+  },
+  {
+    src: '/images/flopitec-mostrador.webp',
+    alt: 'Mostrador de atención de Flopitec',
+  },
+  {
+    src: '/images/flopitec-taller-reparacion.webp',
+    alt: 'Zona técnica del taller de Flopitec',
+  },
+];
 ---
-<BaseLayout title="Sobre Flopitec | Servicio técnico local" description="Filosofía de Flopitec: diagnóstico claro, reparación realista y atención cercana en La Zubia." path="/sobre-nosotros/"><section class="section"><div class="container max-w-3xl"><p class="eyebrow">Sobre nosotros</p><h1 class="mt-3 text-4xl font-black">Servicio técnico local con trato directo</h1><p class="mt-5 text-[var(--muted)]">El cliente debe entender siempre qué le pasa a su equipo, por qué ocurre y qué opciones reales tiene. Reparamos, configuramos y asesoramos sin vender de más.</p><h2 class="mt-8 text-2xl font-black">Nuestra forma de trabajar</h2><p class="mt-3 text-[var(--muted)]">Cuidamos los equipos como si fueran nuestros, explicamos costes, plazos y posibilidades reales, y si algo no merece la pena lo decimos claramente.</p></div></section><CTASection/></BaseLayout>
+<BaseLayout
+  title="Sobre Flopitec | Servicio técnico desde 2001"
+  description="Conoce Flopitec, servicio técnico en La Zubia desde 2001 para particulares y empresas. Reparación, mantenimiento y asesoramiento con trato directo."
+  path="/sobre-nosotros/"
+>
+  <section class="section about-hero">
+    <div class="container about-hero__grid">
+      <div class="about-hero__content">
+        <p class="eyebrow">SOBRE FLOPITEC</p>
+        <h1>Servicio técnico de confianza desde 2001</h1>
+        <p>Desde 2001 ayudamos a particulares, autónomos y empresas a reparar, mantener y aprovechar mejor sus equipos tecnológicos. Trabajamos desde nuestro taller en La Zubia, ofreciendo atención directa, explicaciones claras y soluciones adaptadas a cada caso.</p>
+        <p>Buscamos la opción que se adapte mejor a lo que necesitas. Primero revisamos el equipo/aparato, valoramos qué necesita realmente y te explicamos las alternativas para que puedas decidir con toda la información.</p>
+      </div>
+      <div class="about-hero__panel card" aria-label="Principios de atención de Flopitec">
+        <span>Diagnóstico claro</span>
+        <span>Presupuesto previo cuando el diagnóstico lo permite</span>
+        <span>Reparaciones con sentido</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-section about-section--compact" aria-labelledby="about-trust-title">
+    <div class="container">
+      <h2 id="about-trust-title" class="sr-only">Lo que define a Flopitec</h2>
+      <div class="about-card-grid about-card-grid--four">
+        {trustCards.map((card) => (
+          <article class="card about-card">
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-section">
+    <div class="container about-narrow">
+      <p class="eyebrow">NUESTRA TRAYECTORIA</p>
+      <h2>Experiencia que se adapta a la tecnología</h2>
+      <p>La tecnología ha cambiado mucho desde que comenzamos en 2001, y nosotros hemos evolucionado con ella. A lo largo de estos años hemos trabajado con ordenadores, portátiles, teléfonos, consolas, televisores, redes, impresoras, dispositivos electrónicos y equipos profesionales.</p>
+      <p>Esa experiencia nos permite analizar cada avería con perspectiva y distinguir cuándo merece la pena reparar, mejorar, reutilizar o sustituir un equipo. Nuestro objetivo no es aplicar una solución estándar, sino encontrar la opción más adecuada según su estado, su valor y el uso que necesites darle.</p>
+    </div>
+  </section>
+
+  <section class="section about-section">
+    <div class="container">
+      <div class="about-heading">
+        <p class="eyebrow">NUESTRA FORMA DE TRABAJAR</p>
+        <h2>Claridad antes, durante y después de la reparación</h2>
+      </div>
+      <div class="about-card-grid about-card-grid--four">
+        {workCards.map((card) => (
+          <article class="card about-card about-card--step">
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-section">
+    <div class="container">
+      <div class="about-heading">
+        <p class="eyebrow">A QUIÉN AYUDAMOS</p>
+        <h2>Soluciones para particulares y empresas</h2>
+      </div>
+      <div class="about-audience-grid">
+        <article class="card about-audience-card">
+          <h3>Particulares</h3>
+          <p>Reparamos y configuramos los equipos que utilizas cada día: ordenadores, portátiles, móviles, consolas, televisores, impresoras, redes domésticas y otros dispositivos electrónicos.</p>
+          <p>Te ayudamos tanto con una avería concreta como con mejoras de rendimiento, mantenimiento, configuración o recuperación de información.</p>
+          <a class="btn btn-primary" href="/servicios/">Ver servicios</a>
+        </article>
+        <article class="card about-audience-card">
+          <h3>Empresas y profesionales</h3>
+          <p>Ofrecemos soporte informático, mantenimiento, asistencia remota y presencial, redes, puestos de trabajo, copias de seguridad, configuración de equipos y resolución de incidencias.</p>
+          <p>Nos adaptamos a las necesidades reales de cada negocio para reducir interrupciones y mantener sus herramientas de trabajo operativas.</p>
+          <a class="btn btn-primary" href="/servicios/soporte-empresas/">Ver soporte a empresas</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-section">
+    <div class="container about-sustainability">
+      <div>
+        <p class="eyebrow">REPARAR CON SENTIDO</p>
+        <h2>Alargar la vida útil de los equipos</h2>
+        <p>Siempre que sea técnica y económicamente razonable, apostamos por reparar, mantener y reutilizar antes que sustituir. Una ampliación de memoria, un nuevo SSD, una batería o una reparación electrónica pueden prolongar durante años la utilidad de un aparato.</p>
+        <p>Cuando una reparación no compensa, también lo decimos con claridad. Preferimos que tomes una buena decisión antes que hacerte invertir en una solución poco conveniente.</p>
+      </div>
+      <img src="/images/reparar-antes-que-tirar.webp" alt="Equipo preparado para reparación y reutilización" width="720" height="480" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <section class="section about-section">
+    <div class="container">
+      <div class="about-heading">
+        <p class="eyebrow">NUESTRO TALLER</p>
+        <h2>Un taller real, cerca de ti</h2>
+        <p>Estamos en La Zubia y atendemos a clientes de Granada y su área metropolitana. Puedes visitarnos para explicarnos el problema, dejar tu equipo para revisión o consultar previamente por WhatsApp, teléfono o correo electrónico.</p>
+      </div>
+      <div class="about-gallery">
+        {workshopImages.map((image) => (
+          <img src={image.src} alt={image.alt} width="640" height="427" loading="lazy" decoding="async" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-section">
+    <div class="container card about-final-cta">
+      <h2>¿Hablamos de tu equipo?</h2>
+      <p>Cuéntanos qué problema tiene tu dispositivo o qué necesita tu empresa. Te orientaremos con claridad para encontrar la solución más adecuada.</p>
+      <div>
+        <a class="btn btn-primary" href={business.whatsapp.url}>Escribir por WhatsApp</a>
+        <a class="btn" href="/contacto/">Contacto</a>
+        <a class="btn" href={business.mapsUrl}>Cómo llegar</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero { padding-top: 5.5rem; }
+  .about-hero__grid { display: grid; gap: 1.25rem; align-items: stretch; }
+  .about-hero__content { max-width: 58rem; }
+  .about-hero h1, .about-section h2, .about-final-cta h2 { margin-top: .8rem; font-size: clamp(2.3rem, 6vw, 4.75rem); font-weight: 950; line-height: .96; letter-spacing: -.045em; }
+  .about-section h2, .about-final-cta h2 { font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1; }
+  .about-hero p:not(.eyebrow), .about-section p, .about-final-cta p { margin-top: 1rem; color: var(--muted); font-size: 1.06rem; line-height: 1.75; }
+  .about-hero__panel { display: grid; gap: .8rem; padding: 1.2rem; background: linear-gradient(135deg, rgb(249 115 22 / .18), rgb(5 5 5 / .82)); }
+  .about-hero__panel span { border: 1px solid rgb(249 115 22 / .28); border-radius: 999px; padding: .75rem .95rem; color: var(--ink); font-weight: 850; background: rgb(0 0 0 / .22); }
+  .about-section { padding-top: 3.25rem; padding-bottom: 3.25rem; }
+  .about-section--compact { padding-top: 1rem; }
+  .about-narrow { max-width: 58rem; }
+  .about-heading { max-width: 58rem; margin-bottom: 1.5rem; }
+  .about-card-grid, .about-audience-grid, .about-gallery, .about-sustainability { display: grid; gap: 1rem; }
+  .about-card { padding: 1.25rem; min-width: 0; }
+  .about-card h3, .about-audience-card h3 { font-size: 1.18rem; font-weight: 950; line-height: 1.15; }
+  .about-card p, .about-audience-card p { font-size: .98rem; line-height: 1.65; }
+  .about-card--step { background: linear-gradient(180deg, rgb(20 20 20 / .86), rgb(5 5 5 / .78)); }
+  .about-audience-card { display: flex; flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+  .about-audience-card .btn { margin-top: auto; }
+  .about-sustainability { align-items: center; }
+  .about-sustainability img, .about-gallery img { display: block; width: 100%; object-fit: cover; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); background: #111; }
+  .about-sustainability img { aspect-ratio: 3 / 2; height: auto; }
+  .about-gallery img { aspect-ratio: 3 / 2; height: auto; }
+  .about-final-cta { padding: clamp(1.5rem, 4vw, 2.5rem); text-align: center; background: radial-gradient(circle at 50% 0%, rgb(249 115 22 / .18), transparent 34%), rgb(5 5 5 / .78); }
+  .about-final-cta p { max-width: 44rem; margin-left: auto; margin-right: auto; }
+  .about-final-cta div { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 1.5rem; }
+
+  @media (min-width: 641px) {
+    .about-card-grid, .about-audience-grid, .about-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .about-sustainability { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .about-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(19rem, .35fr); }
+    .about-card-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .about-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 640px) {
+    .about-hero { padding-top: 3.5rem; }
+    .about-section { padding-top: 2.4rem; padding-bottom: 2.4rem; }
+    .about-final-cta div { flex-direction: column; }
+    .about-final-cta .btn, .about-audience-card .btn { width: 100%; }
+  }
+</style>
