@@ -68,11 +68,6 @@ const workshopImages = [
         <p>Desde 2001 ayudamos a particulares, autónomos y empresas a reparar, mantener y aprovechar mejor sus equipos tecnológicos. Trabajamos desde nuestro taller en La Zubia, ofreciendo atención directa, explicaciones claras y soluciones adaptadas a cada caso.</p>
         <p>Buscamos la opción que se adapte mejor a lo que necesitas. Primero revisamos el equipo/aparato, valoramos qué necesita realmente y te explicamos las alternativas para que puedas decidir con toda la información.</p>
       </div>
-      <div class="about-hero__panel card" aria-label="Principios de atención de Flopitec">
-        <span>Diagnóstico claro</span>
-        <span>Presupuesto previo cuando el diagnóstico lo permite</span>
-        <span>Reparaciones con sentido</span>
-      </div>
     </div>
   </section>
 
@@ -182,12 +177,10 @@ const workshopImages = [
 <style>
   .about-hero { padding-top: 5.5rem; }
   .about-hero__grid { display: grid; gap: 1.25rem; align-items: stretch; }
-  .about-hero__content { max-width: 58rem; }
+  .about-hero__content { max-width: 64rem; }
   .about-hero h1, .about-section h2, .about-final-cta h2 { margin-top: .8rem; font-size: clamp(2.3rem, 6vw, 4.75rem); font-weight: 950; line-height: .96; letter-spacing: -.045em; }
   .about-section h2, .about-final-cta h2 { font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1; }
   .about-hero p:not(.eyebrow), .about-section p, .about-final-cta p { margin-top: 1rem; color: var(--muted); font-size: 1.06rem; line-height: 1.75; }
-  .about-hero__panel { display: grid; gap: .8rem; padding: 1.2rem; background: linear-gradient(135deg, rgb(249 115 22 / .18), rgb(5 5 5 / .82)); }
-  .about-hero__panel span { border: 1px solid rgb(249 115 22 / .28); border-radius: 999px; padding: .75rem .95rem; color: var(--ink); font-weight: 850; background: rgb(0 0 0 / .22); }
   .about-section { padding-top: 3.25rem; padding-bottom: 3.25rem; }
   .about-section--compact { padding-top: 1rem; }
   .about-narrow { max-width: 58rem; }
@@ -213,7 +206,6 @@ const workshopImages = [
   }
 
   @media (min-width: 1024px) {
-    .about-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(19rem, .35fr); }
     .about-card-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .about-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
