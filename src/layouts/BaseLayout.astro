@@ -1,9 +1,14 @@
 ---
 import '@/styles/global.css';
-import Header from '@/components/Header.astro'; import Footer from '@/components/Footer.astro'; import WhatsAppButton from '@/components/WhatsAppButton.astro'; import JsonLd from '@/components/JsonLd.astro';
+import Header from '@/components/Header.astro'; import Footer from '@/components/Footer.astro'; import WhatsAppButton from '@/components/WhatsAppButton.astro'; import JsonLd from '@/components/JsonLd.astro'; import PageBackground from '@/components/PageBackground.astro';
 import { site } from '@/data/site'; import { business } from '@/data/business';
-const { title=site.defaultTitle, description=site.defaultDescription, path='/', jsonLd=[] } = Astro.props;
+const { title=site.defaultTitle, description=site.defaultDescription, path='/', jsonLd=[], backgroundDesktop, backgroundMobile } = Astro.props;
+const homeBackground = { desktop: '/images/backgrounds/home-desktop.webp', mobile: '/images/backgrounds/home-mobile.webp' };
+const corporateBackground = { desktop: '/images/backgrounds/corporativo-desktop.webp', mobile: '/images/backgrounds/corporativo-mobile.webp' };
+const selectedBackground = path === '/' || path === '/servicios/' ? homeBackground : corporateBackground;
+const pageBackgroundDesktop = backgroundDesktop ?? selectedBackground.desktop;
+const pageBackgroundMobile = backgroundMobile ?? selectedBackground.mobile;
 const canonical = new URL(path, site.siteUrl).toString();
 const localBusiness = {'@context':'https://schema.org','@type':['LocalBusiness','ComputerStore'],name:business.commercialName,legalName:business.legalName,address:{'@type':'PostalAddress',streetAddress:business.address.street,postalCode:business.address.postalCode,addressLocality:business.address.locality,addressRegion:business.address.province,addressCountry:'ES'},telephone:'+34958891822',email:business.email,url:site.siteUrl};
 ---
-<!doctype html><html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={canonical}/><meta property="og:image" content={new URL(site.ogImage, site.siteUrl).toString()}/><meta name="theme-color" content="#f97316"/><JsonLd data={localBusiness}/>{jsonLd.map((data)=><JsonLd data={data}/>)}</head><body><a href="#contenido" class="skip-link">Saltar al contenido</a><Header/><main id="contenido"><slot/></main><Footer/><WhatsAppButton/></body></html>
+<!doctype html><html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={canonical}/><meta property="og:image" content={new URL(site.ogImage, site.siteUrl).toString()}/><meta name="theme-color" content="#f97316"/><JsonLd data={localBusiness}/>{jsonLd.map((data)=><JsonLd data={data}/>)}</head><body><PageBackground desktopImage={pageBackgroundDesktop} mobileImage={pageBackgroundMobile}/><a href="#contenido" class="skip-link">Saltar al contenido</a><div class="site-shell"><Header/><main id="contenido"><slot/></main><Footer/></div><WhatsAppButton/></body></html>
