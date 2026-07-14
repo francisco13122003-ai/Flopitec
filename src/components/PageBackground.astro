@@ -1,0 +1,18 @@
+---
+const {
+  desktopImage,
+  mobileImage = desktopImage,
+  overlayOpacity = 0.5,
+} = Astro.props;
+---
+
+{desktopImage && (
+  <div
+    class="page-background"
+    aria-hidden="true"
+    style={`--page-bg-desktop: url('${desktopImage}'); --page-bg-mobile: url('${mobileImage}'); --page-bg-overlay: ${overlayOpacity};`}
+  >
+    <div class="page-background__image"></div>
+    <div class="page-background__overlay"></div>
+  </div>
+)}
