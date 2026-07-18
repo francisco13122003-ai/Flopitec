@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title>Flopitec</title>
+  <rect x="8" y="8" width="496" height="496" rx="104" fill="#050505" stroke="#333333" stroke-width="16"/>
+  <path d="M144 104h248v80H232v72h136v80H232v120h-88V104Z" fill="#f97316"/>
+</svg>
