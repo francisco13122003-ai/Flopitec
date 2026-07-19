@@ -1,9 +1,8 @@
-// Dominio provisional: confirmar antes de publicar y activar Cloudflare Pages.
 export const site = {
   name: 'Flopitec Servicios Informáticos',
   legalName: 'Luis Alemán Caballero',
   tagline: 'Tus equipos en las mejores manos',
-  siteUrl: 'https://www.flopitec.es',
+  siteUrl: 'https://www.flopitec.com',
   defaultTitle: 'Flopitec Servicios Informáticos | Servicio técnico en La Zubia y Granada',
   defaultDescription: 'Servicio técnico informático local en La Zubia, Granada: reparación de ordenadores, portátiles, móviles, tablets, consolas, software, redes, electrónica y soporte a empresas.',
   ogImage: '/images/flopitec-og.jpg',
