@@ -1,0 +1,15 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { isPublicBlogPost, sortBlogPosts, toBlogCardPost } from '@/lib/blog';
+
+export async function getStaticPaths() {
+  const buildTime = new Date();
+  const posts = sortBlogPosts((await getCollection('blog')).filter((post) => isPublicBlogPost(post, buildTime)));
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BlogLayout post={toBlogCardPost(post)}><Content /></BlogLayout>
