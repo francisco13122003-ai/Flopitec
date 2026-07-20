@@ -19,6 +19,16 @@ export function isPublicBlogPost(post: Pick<BlogEntry, "data">, buildTime = new 
 
 export function sortBlogPosts(posts: BlogEntry[]): BlogEntry[] {
   return [...posts].sort((a, b) => {
+    const aTime = a.data.publishAt?.getTime();
+    const bTime = b.data.publishAt?.getTime();
+
+    if (aTime !== undefined && bTime !== undefined) {
+      return bTime - aTime || a.id.localeCompare(b.id);
+    }
+
+    if (aTime !== undefined) return -1;
+    if (bTime !== undefined) return 1;
+
     const aIndex = legacyBlogOrder.indexOf(a.id as (typeof legacyBlogOrder)[number]);
     const bIndex = legacyBlogOrder.indexOf(b.id as (typeof legacyBlogOrder)[number]);
 
@@ -26,9 +36,7 @@ export function sortBlogPosts(posts: BlogEntry[]): BlogEntry[] {
       return (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) - (bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex);
     }
 
-    const aTime = a.data.publishAt?.getTime() ?? 0;
-    const bTime = b.data.publishAt?.getTime() ?? 0;
-    return bTime - aTime || a.id.localeCompare(b.id);
+    return a.id.localeCompare(b.id);
   });
 }
 
