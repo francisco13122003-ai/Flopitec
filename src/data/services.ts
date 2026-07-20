@@ -57,7 +57,7 @@ export const servicePages: ServiceBlock[] = [
         "Puedes explicarnos el problema por teléfono o WhatsApp antes de venir, aunque la valoración técnica requiere revisar el equipo.",
       ],
     },
-    relatedArticleSlugs: ["portatil-no-enciende-causas", "merece-la-pena-cambiar-disco-duro-por-ssd", "actualizar-a-windows-11"],
+    relatedArticleSlugs: ["ordenador-lento-causas-que-revisar", "portatil-no-enciende-causas", "merece-la-pena-cambiar-disco-duro-por-ssd", "actualizar-a-windows-11"],
     relatedServiceLinks: [
       { href: "/servicios/software/", label: "Instalación de Windows y problemas de software" },
       { href: "/servicios/recuperacion-datos/", label: "Recuperación de datos" },
