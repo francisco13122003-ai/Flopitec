@@ -9,6 +9,12 @@ export type ServiceBlock = {
   intro: string;
   groupHeading: string;
   relatedLinks?: { href: string; label: string }[];
+  commonProblems?: { title: string; description: string }[];
+  processSteps?: { title: string; description: string }[];
+  decisionSection?: { title: string; paragraphs: string[] };
+  localSection?: { title: string; paragraphs: string[] };
+  relatedArticleSlugs?: string[];
+  relatedServiceLinks?: { href: string; label: string }[];
   image: string;
   imageAlt: string;
   services: { title: string; description: string }[];
@@ -24,8 +30,39 @@ export const servicePages: ServiceBlock[] = [
     h1: "Reparación de ordenadores y portátiles en La Zubia y Granada",
     intro: "En nuestro taller de La Zubia revisamos ordenadores y portátiles de particulares, autónomos y empresas. Valoramos averías de hardware, problemas de Windows y posibles mejoras de rendimiento después de comprobar el equipo, y te explicamos las opciones antes de decidir.",
     ctaTitle: "Cuéntanos qué le ocurre a tu equipo.",
-    groupHeading: "Servicios para ordenadores y portátiles",
-    relatedLinks: [{ href: "/servicios/software/", label: "Instalación de Windows y software" }, { href: "/servicios/recuperacion-datos/", label: "Recuperación de datos" }, { href: "/servicios/redes-wifi/", label: "Redes y WiFi" }, { href: "/blog/merece-la-pena-cambiar-disco-duro-por-ssd/", label: "Cuándo cambiar a SSD" }, { href: "/blog/actualizar-a-windows-11/", label: "Actualizar a Windows 11" }, { href: "/blog/portatil-no-enciende-causas/", label: "Portátil que no enciende" }],
+    groupHeading: "Reparaciones y mejoras para ordenadores y portátiles",
+    commonProblems: [
+      { title: "El ordenador o el portátil no enciende", description: "Comprobamos la alimentación, el cargador, la batería, los conectores y otros componentes que pueden impedir el encendido. Sin revisar físicamente el equipo no podemos confirmar cuál es el origen de la avería." },
+      { title: "Windows va lento, se bloquea o no arranca", description: "Revisamos el estado del sistema, el almacenamiento, la memoria y otros factores que pueden afectar al rendimiento o impedir que Windows se inicie correctamente." },
+      { title: "El portátil se calienta, hace ruido o se apaga", description: "Valoramos la refrigeración, la acumulación de polvo y el estado térmico del equipo antes de recomendar una limpieza, un mantenimiento o una reparación." },
+      { title: "La batería no carga o dura muy poco", description: "Comprobamos el cargador, la batería y el conector de corriente para valorar qué elemento puede estar causando el problema y qué opciones existen según el equipo." },
+      { title: "La pantalla, el teclado, las bisagras o los conectores están dañados", description: "Revisamos el estado del componente y valoramos las posibilidades de reparación o sustitución según el modelo, el daño y la disponibilidad correspondiente." },
+    ],
+    processSteps: [
+      { title: "Nos explicas qué ocurre", description: "Cuéntanos qué síntomas presenta el equipo, cuándo comenzaron y si hay datos importantes que debamos tener en cuenta." },
+      { title: "Comprobamos el equipo", description: "Revisamos el ordenador para entender el origen del problema y valorar las posibilidades técnicas disponibles." },
+      { title: "Te explicamos las opciones", description: "Te informamos de las alternativas antes de decidir si compensa reparar, mejorar algún componente o valorar otro equipo." },
+    ],
+    decisionSection: {
+      title: "¿Merece la pena reparar o mejorar el ordenador?",
+      paragraphs: [
+        "No existe una respuesta igual para todos los equipos. Para valorarlo tenemos en cuenta el tipo de avería, la antigüedad del ordenador, el uso que recibe y el coste razonable de la intervención.",
+        "En algunos casos, sustituir un disco por un SSD, ampliar la memoria RAM o realizar un mantenimiento puede mejorar el funcionamiento y prolongar la vida útil del equipo. En otros casos, una reparación puede no resultar aconsejable. Después de revisarlo, te explicamos las opciones para que puedas decidir con más información.",
+      ],
+    },
+    localSection: {
+      title: "Taller de reparación de ordenadores en La Zubia",
+      paragraphs: [
+        "Revisamos ordenadores de sobremesa y portátiles en nuestro taller situado en {address}. Atendemos a particulares, autónomos y empresas de La Zubia, Granada y municipios cercanos.",
+        "Puedes explicarnos el problema por teléfono o WhatsApp antes de venir, aunque la valoración técnica requiere revisar el equipo.",
+      ],
+    },
+    relatedArticleSlugs: ["portatil-no-enciende-causas", "merece-la-pena-cambiar-disco-duro-por-ssd", "actualizar-a-windows-11"],
+    relatedServiceLinks: [
+      { href: "/servicios/software/", label: "Instalación de Windows y problemas de software" },
+      { href: "/servicios/recuperacion-datos/", label: "Recuperación de datos" },
+      { href: "/servicios/redes-wifi/", label: "Redes y WiFi" },
+    ],
     featured: ["Reparación de ordenadores", "Reparación de portátiles", "Montaje de PC a medida", "Ampliación de RAM y SSD", "Venta y configuración de equipos"],
     phrase: "Todo lo que tu ordenador necesita para volver a funcionar como el primer día.",
     image: "/images/servicios/pc-portatiles.webp",
