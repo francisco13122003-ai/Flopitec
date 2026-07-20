@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+---
+
+<BaseLayout
+  title="Herramientas útiles para clientes | Flopitec"
+  description="Accede a las herramientas de Flopitec para descargar AnyDesk y convertir imágenes JPG, PNG y WebP directamente desde tu navegador."
+  path="/herramientas/"
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Herramientas</p>
+      <h1 class="mt-3 text-4xl font-black">Herramientas útiles para nuestros clientes</h1>
+      <p class="mt-4 max-w-3xl text-[var(--muted)]">
+        Hemos reunido algunas utilidades sencillas para facilitar una asistencia remota, preparar archivos y resolver pequeñas tareas directamente desde el navegador.
+      </p>
+
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        <article class="card flex flex-col p-6">
+          <p class="eyebrow">Asistencia remota</p>
+          <h2 class="mt-3 text-2xl font-black">Asistencia remota con AnyDesk</h2>
+          <p class="mt-3 text-[var(--muted)]">
+            Descarga AnyDesk para que podamos conectarnos a tu ordenador durante una asistencia previamente acordada. Tú decides cuándo aceptar la conexión y puedes finalizarla en cualquier momento.
+          </p>
+          <ol class="mt-5 list-decimal space-y-2 pl-5 text-[var(--muted)]">
+            <li>Descarga y abre AnyDesk.</li>
+            <li>Indícanos el número que aparece en pantalla.</li>
+            <li>Acepta la conexión únicamente cuando te lo indiquemos.</li>
+            <li>Finaliza la sesión cuando haya terminado la asistencia.</li>
+          </ol>
+          <p class="mt-5 rounded-2xl border border-[var(--accent)]/60 bg-orange-500/10 p-4 font-bold text-[var(--ink)]">
+            No aceptes conexiones ni compartas el identificador de AnyDesk con personas desconocidas.
+          </p>
+          <div class="mt-auto pt-6">
+            <a class="btn btn-primary" href="https://anydesk.com/es/downloads/windows" target="_blank" rel="noopener noreferrer" aria-label="Descargar AnyDesk desde la página oficial en español, se abre en una pestaña nueva">Descargar AnyDesk</a>
+          </div>
+        </article>
+
+        <article class="card flex flex-col p-6">
+          <p class="eyebrow">Imágenes</p>
+          <h2 class="mt-3 text-2xl font-black">Convertidor de imágenes</h2>
+          <p class="mt-3 text-[var(--muted)]">
+            Convierte imágenes entre JPG, PNG y WebP, ajusta sus dimensiones y controla la calidad del resultado sin subir los archivos a nuestros servidores.
+          </p>
+          <ul class="mt-5 list-disc space-y-2 pl-5 text-[var(--muted)]">
+            <li>Convierte JPG, PNG y WebP.</li>
+            <li>Cambia el ancho y el alto.</li>
+            <li>Mantiene la proporción de la imagen.</li>
+            <li>Muestra el tamaño del archivo resultante.</li>
+          </ul>
+          <div class="mt-auto pt-6">
+            <a class="btn btn-primary" href="/herramientas/convertidor-imagenes/">Abrir convertidor</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-0">
+    <div class="container">
+      <div class="card p-6 md:p-8">
+        <h2 class="text-3xl font-black">Privacidad y uso seguro</h2>
+        <p class="mt-3 max-w-3xl text-[var(--muted)]">
+          El convertidor procesa las imágenes directamente en tu dispositivo. Los archivos no se envían ni se almacenan en los servidores de Flopitec. Para una asistencia remota, utiliza AnyDesk únicamente cuando la conexión haya sido acordada previamente con nosotros.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTASection title="¿Necesitas ayuda con alguna herramienta?" text="Escríbenos si tienes algún problema al utilizar estas herramientas o necesitas que te orientemos antes de comenzar." />
+</BaseLayout>
