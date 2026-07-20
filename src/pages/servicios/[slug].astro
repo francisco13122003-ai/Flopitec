@@ -3,14 +3,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import CTASection from '@/components/CTASection.astro';
 import { servicePages, getServiceBySlug } from '@/data/services';
-import { getPostBySlug } from '@/data/blog';
+import { getCollection } from 'astro:content';
+import { isPublicBlogPost, toBlogCardPost } from '@/lib/blog';
 import { business } from '@/data/business';
 import { site } from '@/data/site';
 export function getStaticPaths(){return servicePages.map(service=>({params:{slug:service.slug}}));}
 const service = getServiceBySlug(Astro.params.slug!);
 if (!service) return Astro.redirect('/servicios/');
 const path = `/servicios/${service.slug}/`;
-const relatedArticles = service.relatedArticleSlugs?.map((slug) => getPostBySlug(slug)).filter(Boolean) ?? [];
+const buildTime = new Date();
+const publicBlogPosts = (await getCollection('blog')).filter((post) => isPublicBlogPost(post, buildTime));
+const relatedArticles = service.relatedArticleSlugs?.map((slug) => publicBlogPosts.find((post) => post.id === slug)).filter(Boolean).map(toBlogCardPost) ?? [];
 const formatLocalParagraph = (paragraph: string) => paragraph.replace('{address}', `${business.address.street}, en ${business.address.locality}, ${business.address.province}`);
 const jsonLd = [
   {'@context':'https://schema.org','@type':'WebPage',name:service.h1,description:service.metaDescription,url:site.siteUrl+path},
