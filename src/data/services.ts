@@ -299,7 +299,7 @@ export const servicePages: ServiceBlock[] = [
     intro: "Desde nuestro taller de La Zubia atendemos necesidades informáticas de empresas, autónomos y pymes de Granada. Revisamos equipos, redes, copias, correo e incidencias para valorar qué mantenimiento o asistencia encaja en cada caso.",
     ctaTitle: "Hablemos de las necesidades informáticas de tu empresa.",
     groupHeading: "Servicios informáticos para empresas",
-    relatedLinks: [{ href: "/servicios/redes-wifi/", label: "Redes y WiFi para empresas" }, { href: "/servicios/impresoras-perifericos/", label: "Impresoras y periféricos" }, { href: "/contacto/", label: "Contactar con Flopitec" }],
+    relatedLinks: [{ href: "/servicios/redes-wifi/", label: "Redes y WiFi para empresas" }, { href: "/servicios/impresoras-perifericos/", label: "Impresoras y periféricos" }, { href: "/marketing/", label: "Marketing para empresas" }, { href: "/contacto/", label: "Contactar con Flopitec" }],
     featured: ["Mantenimiento informático", "Soporte remoto", "Redes", "Copias de seguridad", "Asesoramiento"],
     phrase: "Te acompañamos en el mantenimiento informático de tu empresa.",
     image: "/images/servicios/soporte-empresas.webp",
