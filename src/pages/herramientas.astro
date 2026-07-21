@@ -5,7 +5,7 @@ import CTASection from '@/components/CTASection.astro';
 
 <BaseLayout
   title="Herramientas útiles para clientes | Flopitec"
-  description="Accede a las herramientas de Flopitec para descargar AnyDesk y convertir imágenes JPG, PNG y WebP directamente desde tu navegador."
+  description="Accede a las herramientas de Flopitec para asistencia remota, convertir imágenes, crear códigos QR y consultar información técnica del navegador directamente desde tu dispositivo."
   path="/herramientas/"
 >
   <section class="section">
@@ -53,6 +53,40 @@ import CTASection from '@/components/CTASection.astro';
             <a class="btn btn-primary" href="/herramientas/convertidor-imagenes/">Abrir convertidor</a>
           </div>
         </article>
+
+        <article class="card flex flex-col p-6">
+          <p class="eyebrow">Códigos QR</p>
+          <h2 class="mt-3 text-2xl font-black">Generador de códigos QR</h2>
+          <p class="mt-3 text-[var(--muted)]">
+            Crea códigos QR para direcciones web, textos, redes Wi-Fi, teléfonos, correos electrónicos y WhatsApp directamente desde tu navegador.
+          </p>
+          <ul class="mt-5 list-disc space-y-2 pl-5 text-[var(--muted)]">
+            <li>Generación local en el dispositivo.</li>
+            <li>Descarga en PNG o SVG.</li>
+            <li>Diferentes tipos de contenido.</li>
+            <li>Sin enviar los datos a un servidor.</li>
+          </ul>
+          <div class="mt-auto pt-6">
+            <a class="btn btn-primary" href="/herramientas/generador-codigos-qr/">Crear código QR</a>
+          </div>
+        </article>
+
+        <article class="card flex flex-col p-6">
+          <p class="eyebrow">Asistencia técnica</p>
+          <h2 class="mt-3 text-2xl font-black">Información del dispositivo</h2>
+          <p class="mt-3 text-[var(--muted)]">
+            Consulta la información técnica que tu navegador puede mostrar sobre el sistema, la pantalla, la conexión y sus capacidades.
+          </p>
+          <ul class="mt-5 list-disc space-y-2 pl-5 text-[var(--muted)]">
+            <li>Sistema y navegador.</li>
+            <li>Procesadores, memoria y gráficos disponibles.</li>
+            <li>Pantalla y conexión.</li>
+            <li>Informe fácil de copiar o descargar.</li>
+          </ul>
+          <div class="mt-auto pt-6">
+            <a class="btn btn-primary" href="/herramientas/informacion-dispositivo/">Analizar dispositivo</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -62,7 +96,7 @@ import CTASection from '@/components/CTASection.astro';
       <div class="card p-6 md:p-8">
         <h2 class="text-3xl font-black">Privacidad y uso seguro</h2>
         <p class="mt-3 max-w-3xl text-[var(--muted)]">
-          El convertidor procesa las imágenes directamente en tu dispositivo. Los archivos no se envían ni se almacenan en los servidores de Flopitec. Para una asistencia remota, utiliza AnyDesk únicamente cuando la conexión haya sido acordada previamente con nosotros.
+          Las herramientas de conversión, QR e información técnica procesan los datos directamente en tu dispositivo. Los archivos, textos, contraseñas Wi-Fi e informes no se envían ni se almacenan en los servidores de Flopitec. Para una asistencia remota, utiliza AnyDesk únicamente cuando la conexión haya sido acordada previamente con nosotros.
         </p>
       </div>
     </div>
