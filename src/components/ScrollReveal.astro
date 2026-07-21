@@ -1,0 +1,141 @@
+<script is:inline>
+  document.documentElement.classList.add('reveal-ready');
+</script>
+<script is:inline>
+  (() => {
+    const CONFIG = {
+      itemClass: 'reveal-item',
+      revealedClass: 'is-revealed',
+      processedAttr: 'data-reveal-processed',
+      delayStep: 70,
+      maxDelay: 350,
+      observerOptions: { rootMargin: '0px 0px -8% 0px', threshold: 0.16 },
+    };
+
+    const explicitSelector = '[data-reveal]';
+    const visualSelector = [
+      'main .eyebrow',
+      'main h1',
+      'main h2',
+      'main h3',
+      'main p',
+      'main ul',
+      'main ol',
+      'main figure',
+      'main img:not(.service-card__media)',
+      'main form',
+      'main fieldset',
+      'main details',
+      'main .card',
+      'main .btn',
+      'main .hero-image',
+      'main .placeholder',
+      'footer .container > *',
+    ].join(',');
+
+    const groupSelector = [
+      '.services-grid',
+      '.grid-auto',
+      '.philosophy-grid',
+      '[data-reveal-group]',
+    ].join(',');
+
+    let observer;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const isExcluded = (element) => {
+      if (!(element instanceof HTMLElement)) return true;
+      if (element.matches('script,style,meta,link,noscript,svg,svg *,[hidden],[aria-hidden="true"],[data-no-reveal],.skip-link,.page-background,.page-background *')) return true;
+      if (element.closest('[data-no-reveal],.page-background,header,[hidden],[aria-hidden="true"]')) return true;
+      if (element.closest('details:not([open])') && !element.matches('details')) return true;
+
+      const style = window.getComputedStyle(element);
+      if (style.display === 'none' || style.visibility === 'hidden') return true;
+      if (style.position === 'fixed' || style.position === 'sticky') return true;
+
+      return false;
+    };
+
+    const hasRevealAncestor = (element, candidates) => {
+      let parent = element.parentElement;
+      while (parent && parent !== document.body) {
+        if (candidates.has(parent)) return true;
+        parent = parent.parentElement;
+      }
+      return false;
+    };
+
+    const markRevealed = (element) => {
+      element.classList.add(CONFIG.revealedClass);
+      element.addEventListener('transitionend', () => {
+        element.style.willChange = '';
+      }, { once: true });
+    };
+
+    const collectCandidates = () => {
+      const candidates = new Set();
+
+      document.querySelectorAll(explicitSelector).forEach((element) => {
+        if (!isExcluded(element)) candidates.add(element);
+      });
+
+      document.querySelectorAll(visualSelector).forEach((element) => {
+        if (!isExcluded(element)) candidates.add(element);
+      });
+
+      document.querySelectorAll(groupSelector).forEach((group) => {
+        if (isExcluded(group)) return;
+        const children = Array.from(group.children).filter((child) => child instanceof HTMLElement && !isExcluded(child));
+        children.forEach((child, index) => {
+          candidates.add(child);
+          if (!child.hasAttribute('data-reveal-delay')) {
+            child.style.setProperty('--reveal-delay', `${Math.min(index * CONFIG.delayStep, CONFIG.maxDelay)}ms`);
+          }
+        });
+      });
+
+      return Array.from(candidates).filter((element) => {
+        if (element.hasAttribute(CONFIG.processedAttr)) return false;
+        if (hasRevealAncestor(element, candidates) && !element.hasAttribute('data-reveal')) return false;
+        return true;
+      });
+    };
+
+    const initScrollReveal = () => {
+      const elements = collectCandidates();
+      if (!elements.length) return;
+
+      if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
+        elements.forEach((element) => {
+          element.setAttribute(CONFIG.processedAttr, 'true');
+          element.classList.add(CONFIG.itemClass, CONFIG.revealedClass);
+        });
+        return;
+      }
+
+      if (!observer) {
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            markRevealed(entry.target);
+            observer.unobserve(entry.target);
+          });
+        }, CONFIG.observerOptions);
+      }
+
+      elements.forEach((element) => {
+        element.setAttribute(CONFIG.processedAttr, 'true');
+        element.classList.add(CONFIG.itemClass);
+        if (element.hasAttribute('data-reveal-delay')) {
+          element.style.setProperty('--reveal-delay', `${element.getAttribute('data-reveal-delay')}ms`);
+        }
+        observer.observe(element);
+      });
+    };
+
+    document.addEventListener('DOMContentLoaded', initScrollReveal, { once: true });
+    document.addEventListener('astro:page-load', initScrollReveal);
+  })();
+</script>
