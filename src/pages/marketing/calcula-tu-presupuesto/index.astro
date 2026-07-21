@@ -1,0 +1,195 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { marketingEstimatorPath } from '@/data/marketing';
+import { business } from '@/data/business';
+
+const title = 'Calculadora de presupuesto de marketing | Flopitec';
+const description = 'Calcula una estimación orientativa de servicios de marketing, diseño, web, SEO, publicidad y mantenimiento sin facilitar datos personales.';
+const options = [
+  { id: 'landing', step: 'web', name: 'Landing page personalizada', desc: 'Una página de campaña o servicio con formulario, WhatsApp y publicación.', initial: 490, type: 'initial', discountable: true },
+  { id: 'web-basica', step: 'web', name: 'Web corporativa básica', desc: 'Hasta cuatro páginas internas, diseño a medida y SEO técnico inicial.', initial: 890, type: 'initial', discountable: true },
+  { id: 'web-paginas-extra', step: 'web', name: 'Seis páginas internas', desc: 'Dos páginas internas adicionales para una web corporativa.', initial: 180, type: 'initial', discountable: true, countForDiscount: false },
+  { id: 'blog', step: 'web', name: 'Blog integrado', desc: 'Blog integrado para publicar contenidos y novedades.', initial: 190, type: 'initial', discountable: true },
+  { id: 'web-ampliada', step: 'web', name: 'Web corporativa ampliada', desc: 'Estructura más amplia para empresas con varios servicios o áreas.', initial: 1290, type: 'initial', discountable: true },
+  { id: 'catalogo', step: 'web', name: 'Catálogo de productos', desc: 'Categorías, fichas, imágenes, filtros básicos y consulta por WhatsApp.', initial: 1490, type: 'initial', discountable: true },
+  { id: 'tienda-online', step: 'web', name: 'Tienda online básica', desc: 'Referencia inicial orientativa. Requiere revisión obligatoria y no es precio definitivo.', pending: true, initial: 4900, type: 'pending' },
+  { id: 'productos-extra', step: 'web', name: 'Diez productos adicionales', desc: 'Complemento para tienda online con cuarenta productos.', pending: true, initial: 50, type: 'pending' },
+  { id: 'ecommerce-avanzado', step: 'web', name: 'Ecommerce avanzado', desc: 'Funcionalidades avanzadas de comercio electrónico.', pending: true, type: 'pending' },
+  { id: 'integraciones', step: 'web', name: 'Integraciones personalizadas', desc: 'Conexiones con ERP, marketplaces, reservas, automatizaciones o sistemas externos.', pending: true, type: 'pending' },
+  { id: 'seo-auditoria', step: 'seo', name: 'Auditoría SEO inicial', desc: 'Revisión técnica, contenidos, búsquedas y prioridades de mejora.', initial: 99, type: 'initial', discountable: true },
+  { id: 'seo-local', step: 'seo', name: 'SEO local', desc: 'Mejoras para búsquedas locales y presencia en Google.', initial: 169, type: 'initial', discountable: true },
+  { id: 'seo-seguimiento', step: 'seo', name: 'Seguimiento SEO básico', desc: 'Revisión y mejoras periódicas para mantener evolución.', monthly: 119, type: 'monthly', discountable: true },
+  { id: 'redes-creacion', step: 'redes', name: 'Creación o mejora de perfiles', desc: 'Configuración de una red social con imagen y datos básicos.', initial: 49, type: 'initial', discountable: true },
+  { id: 'redes-pack', step: 'redes', name: 'Gestión de 8 publicaciones mensuales', desc: 'Planificación, diseño y publicación periódica de contenidos.', monthly: 249, type: 'monthly', discountable: true },
+  { id: 'community', step: 'redes', name: 'Community management habitual', desc: 'Gestión de mensajes y comentarios dentro del alcance acordado.', monthly: 179, type: 'monthly', discountable: true },
+  { id: 'ads-setup', step: 'publicidad', name: 'Configuración inicial de campañas', desc: 'Preparación de campañas en Google, Facebook o Instagram.', initial: 149, type: 'initial', discountable: true },
+  { id: 'ads-gestion', step: 'publicidad', name: 'Gestión mensual de una plataforma', desc: 'Gestión y seguimiento mensual de campañas.', monthly: 119, type: 'monthly', discountable: true },
+  { id: 'ads-budget', step: 'publicidad', name: 'Presupuesto publicitario mensual', desc: 'Importe estimado destinado directamente a las plataformas de anuncios.', adBudget: 300, type: 'ad' },
+  { id: 'logo', step: 'diseno', name: 'Logotipo esencial', desc: 'Propuesta de identidad visual básica con rondas de cambios indicadas.', initial: 129, type: 'initial', discountable: true },
+  { id: 'flyer', step: 'diseno', name: 'Flyer o cartel', desc: 'Diseño gráfico preparado para impresión o difusión digital.', initial: 59, type: 'initial', discountable: true },
+  { id: 'impresion', step: 'diseno', name: 'Impresión o proveedor externo', desc: 'Coste externo estimado de imprenta, licencias u otros proveedores.', external: 120, type: 'external' },
+  { id: 'gestion-impresion', step: 'diseno', name: 'Gestión de imprenta', desc: 'Gestión de una impresión externa de 120 €.', initial: 15, type: 'initial' },
+  { id: 'reparto-mano', step: 'diseno', name: 'Reparto en mano', desc: 'Servicio sujeto a zona, disponibilidad y volumen.', pending: true, type: 'pending' },
+  { id: 'impresion-desconocida', step: 'diseno', name: 'Impresión desconocida', desc: 'Impresión sin formato, cantidades o proveedor cerrados.', pending: true, type: 'pending' },
+  { id: 'desplazamientos', step: 'diseno', name: 'Desplazamientos', desc: 'Costes de desplazamiento según ubicación y servicio.', pending: true, type: 'pending' },
+  { id: 'foto', step: 'foto', name: 'Sesión fotográfica', desc: 'Fotografías para web, redes o campañas.', initial: 129, type: 'initial', discountable: true },
+  { id: 'video', step: 'foto', name: 'Vídeo corto o reel', desc: 'Pieza breve para redes o presentación de un servicio.', initial: 99, type: 'initial', discountable: true },
+  { id: 'dron', step: 'foto', name: 'Fotografía aérea con dron', desc: 'Sujeta a ubicación, normativa, seguridad, meteorología, permisos y viabilidad técnica.', pending: true, type: 'pending' },
+  { id: 'whatsapp', step: 'comunicacion', name: 'WhatsApp Business', desc: 'Configuración de perfil, catálogo o atención inicial.', initial: 79, type: 'initial', discountable: true },
+  { id: 'email-marketing', step: 'comunicacion', name: 'Email marketing inicial', desc: 'Preparación de plantilla, newsletter o automatización sencilla.', initial: 129, type: 'initial', discountable: true },
+  { id: 'mantenimiento-esencial', step: 'mantenimiento', name: 'Mantenimiento Esencial mensual', desc: 'Cambios pequeños, revisión básica e incidencias sencillas.', monthly: 39, type: 'maintenance' },
+  { id: 'mantenimiento-negocio', step: 'mantenimiento', name: 'Plan Negocio anual', desc: 'Más tiempo mensual, revisión técnica e informe sencillo con contratación anual.', annual: 799, type: 'maintenance' },
+  { id: 'mantenimiento-avanzado', step: 'mantenimiento', name: 'Mantenimiento Avanzado mensual', desc: 'Hasta tres horas, prioridad y revisión técnica y SEO.', monthly: 139, type: 'maintenance' },
+];
+const steps = [
+  { id: 'objetivo', title: 'Objetivo', intro: 'Elige qué áreas quieres valorar.', kind: 'goals' },
+  { id: 'web', title: 'Web', intro: 'Selecciona la base web si necesitas crear o ampliar tu presencia online.' },
+  { id: 'seo', title: 'SEO y Google', intro: 'Mejoras para que Google entienda mejor tu negocio.' },
+  { id: 'redes', title: 'Redes sociales', intro: 'Perfiles, contenidos y gestión de comunidad.' },
+  { id: 'publicidad', title: 'Publicidad digital', intro: 'Campañas y presupuesto publicitario separado.' },
+  { id: 'diseno', title: 'Diseño e impresión', intro: 'Piezas gráficas y costes externos de imprenta.' },
+  { id: 'foto', title: 'Fotografía y vídeo', intro: 'Contenido visual para web, redes y campañas.' },
+  { id: 'comunicacion', title: 'Comunicación digital', intro: 'WhatsApp Business, correo y newsletters.' },
+  { id: 'mantenimiento', title: 'Mantenimiento', intro: 'Soporte posterior a la entrega.' },
+  { id: 'resumen', title: 'Resumen editable', intro: 'Revisa, ajusta importes y descarga el informe.' },
+];
+---
+<BaseLayout title={title} description={description} path={marketingEstimatorPath}>
+  <Breadcrumbs items={[{ label: 'Marketing', href: '/marketing/' }, { label: 'Calculadora', href: marketingEstimatorPath }]} />
+  <main class="section estimator" data-options={JSON.stringify(options)} data-steps={JSON.stringify(steps)} data-business={JSON.stringify(business)}>
+    <div class="container">
+      <p class="eyebrow">Calculadora de marketing</p>
+      <h1 class="mt-3 text-4xl font-black">Calcula tu presupuesto orientativo</h1>
+      <p class="mt-4 max-w-3xl text-[var(--muted)]">Selecciona servicios paso a paso. La estimación separa inversión inicial, descuentos, cuotas, publicidad, costes externos y partidas pendientes de valoración. No solicitamos datos personales.</p>
+      <noscript><p class="notice mt-6">Activa JavaScript para utilizar la calculadora y descargar la estimación en PDF.</p></noscript>
+      <div class="progress-card card p-5 mt-8" aria-live="polite"><div class="progress-meta"><strong id="stepLabel">Paso 1 de 1 · 0%</strong><span id="progressText">0%</span></div><div class="progress-track" id="progressBarWrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-describedby="stepLabel"><span id="progressBar"></span></div></div>
+      <section id="stepPanel" class="card p-6 mt-6" tabindex="-1"></section>
+      <p id="formError" class="error-message" role="alert" aria-live="assertive" hidden></p>
+      <div class="estimator-actions mt-5"><button class="btn" id="prevStep" type="button">Anterior</button><button class="btn btn-primary" id="nextStep" type="button">Siguiente</button><button class="btn" id="resetEstimator" type="button">Reiniciar estimación</button></div>
+      <section id="summaryPanel" class="summary-print card p-6 mt-6" hidden></section>
+    </div>
+  </main>
+</BaseLayout>
+<script>
+  const storageKey = 'flopitec-marketing-estimator-v1';
+  const root = document.querySelector('.estimator');
+  const options = JSON.parse(root.dataset.options);
+  const steps = JSON.parse(root.dataset.steps);
+  const business = JSON.parse(root.dataset.business);
+  const selectedGoals = new Set(['web']);
+  const selected = new Set();
+  let current = 0;
+  const fmt = (n) => `${Number(n || 0).toLocaleString('es-ES', { minimumFractionDigits: Number.isInteger(Number(n || 0)) ? 0 : 2, maximumFractionDigits: 2 })} €`;
+  const dateStamp = () => new Date().toLocaleDateString('sv-SE');
+  const refStamp = () => { const d = new Date(); return `MKT-${dateStamp().replaceAll('-', '')}-${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; };
+  const visibleSteps = () => steps.filter((s) => s.kind === 'goals' || s.id === 'resumen' || selectedGoals.has(s.id));
+  const discountUnitCount = (items) => items.filter((o)=>o.discountable && o.initial && o.countForDiscount !== false).length;
+  const discountRate = (count) => count >= 5 ? .08 : count >= 3 ? .05 : count >= 2 ? .03 : 0;
+  const totals = () => {
+    const items = options.filter((o) => selected.has(o.id));
+    const initialItems = items.filter((o) => !o.pending && o.initial);
+    const monthlyOwnItems = items.filter((o) => !o.pending && o.monthly);
+    const annualItems = items.filter((o) => !o.pending && o.annual);
+    const adItems = items.filter((o) => !o.pending && o.adBudget);
+    const externalItems = items.filter((o) => !o.pending && o.external);
+    const initial = initialItems.reduce((a,o)=>a+(o.initial||0),0);
+    const monthlyOwn = monthlyOwnItems.reduce((a,o)=>a+(o.monthly||0),0);
+    const annual = annualItems.reduce((a,o)=>a+(o.annual||0),0);
+    const ad = adItems.reduce((a,o)=>a+(o.adBudget||0),0);
+    const external = externalItems.reduce((a,o)=>a+(o.external||0),0);
+    const count = discountUnitCount(items);
+    const rate = discountRate(count);
+    const discountBase = initialItems.filter((o)=>o.discountable).reduce((a,o)=>a+(o.initial||0),0);
+    const discount = Number((discountBase * rate).toFixed(2));
+    return { items, initial, monthlyOwn, annual, ad, external, discount, rate, totalOneTime: Number((initial - discount).toFixed(2)) };
+  };
+  function saveState(){ sessionStorage.setItem(storageKey, JSON.stringify({ goals:[...selectedGoals], selected:[...selected], current })); }
+  function restoreState(){ try { const state = JSON.parse(sessionStorage.getItem(storageKey) || 'null'); if(!state) return; selectedGoals.clear(); state.goals?.forEach((id)=>selectedGoals.add(id)); selected.clear(); state.selected?.forEach((id)=>selected.add(id)); current = Number(state.current || 0); } catch { sessionStorage.removeItem(storageKey); } }
+  function showError(message){ const error = document.getElementById('formError'); error.textContent = message; error.hidden = !message; }
+  function validateSummary(){ const invalid = [...document.querySelectorAll('[data-total]')].find((input) => input.value === '' || Number.isNaN(Number(input.value)) || Number(input.value) < 0); showError(invalid ? 'Introduce importes válidos iguales o superiores a 0 € antes de descargar el PDF.' : ''); return !invalid; }
+  function render(){
+    const list = visibleSteps(); if(current >= list.length) current = list.length - 1;
+    const step = list[current]; const pct = Math.round((current / (list.length - 1)) * 100);
+    document.getElementById('stepLabel').textContent = `Paso ${current + 1} de ${list.length} · ${pct}%`;
+    document.getElementById('progressText').textContent = `${pct}%`;
+    document.getElementById('progressBar').style.width = `${pct}%`;
+    document.getElementById('progressBarWrap').setAttribute('aria-valuenow', String(pct));
+    document.getElementById('prevStep').disabled = current === 0;
+    document.getElementById('nextStep').textContent = step.id === 'resumen' ? 'Actualizar resumen' : 'Siguiente';
+    const panel = document.getElementById('stepPanel'); document.getElementById('summaryPanel').hidden = step.id !== 'resumen'; showError('');
+    if(step.kind === 'goals'){
+      panel.innerHTML = `<fieldset><legend><h2>${step.title}</h2></legend><p>${step.intro}</p><div class="option-grid">${steps.filter(s=>!s.kind&&s.id!=='resumen').map(s=>`<label class="choice"><input type="checkbox" data-goal="${s.id}" ${selectedGoals.has(s.id)?'checked':''}><span><strong>${s.title}</strong><small>${s.intro}</small></span></label>`).join('')}</div></fieldset>`;
+    } else {
+      const cards = options.filter(o=>o.step===step.id).map(o=>`<label class="choice"><input type="checkbox" data-service="${o.id}" ${selected.has(o.id)?'checked':''}><span><strong>${o.name}</strong><small>${o.desc}</small><em>${o.pending?'Pendiente de valoración': [o.initial&&`Inicial ${fmt(o.initial)}`, o.monthly&&`Mensual ${fmt(o.monthly)}`, o.annual&&`Anual ${fmt(o.annual)}`, o.adBudget&&`Publicidad ${fmt(o.adBudget)}/mes`, o.external&&`Externo ${fmt(o.external)}`].filter(Boolean).join(' · ')}</em></span></label>`).join('');
+      panel.innerHTML = `<fieldset><legend><h2>${step.title}</h2></legend><p>${step.intro}</p><div class="option-grid">${cards}</div></fieldset>`;
+    }
+    panel.querySelectorAll('[data-goal]').forEach(i=>i.addEventListener('change', e=> { e.target.checked ? selectedGoals.add(e.target.dataset.goal) : selectedGoals.delete(e.target.dataset.goal); saveState(); }));
+    panel.querySelectorAll('[data-service]').forEach(i=>i.addEventListener('change', e=> { e.target.checked ? selected.add(e.target.dataset.service) : selected.delete(e.target.dataset.service); saveState(); }));
+    if(step.id === 'resumen') renderSummary(); panel.querySelector('h2')?.focus?.(); panel.focus({ preventScroll: true }); saveState();
+  }
+  function renderSummary(){
+    const t = totals();
+    document.getElementById('summaryPanel').innerHTML = `<div id="pdfReport"><p class="eyebrow">Resumen de estimación</p><h2>Propuesta orientativa de marketing</h2><p><strong>Referencia:</strong> ${refStamp()}</p><p><strong>Objetivos seleccionados:</strong> ${[...selectedGoals].map(id => steps.find(s=>s.id===id)?.title).filter(Boolean).join(', ')}</p><div class="summary-grid">${[
+      ['initial', 'Inversión inicial', t.initial], ['discount', 'Descuento', t.discount], ['totalOneTime', 'Total puntual', t.totalOneTime], ['monthlyOwn', 'Servicios mensuales', t.monthlyOwn], ['annual', 'Servicios anuales', t.annual], ['ad', 'Presupuesto publicitario separado', t.ad], ['external', 'Costes externos', t.external]
+    ].map(([key,k,v])=>`<label for="total-${key}"><span>${k}</span><input id="total-${key}" type="number" min="0" step="0.01" value="${v}" data-total="${key}" aria-describedby="formError"></label>`).join('')}</div><h3>Servicios seleccionados</h3><ul>${t.items.map(o=>`<li><strong>${o.name}</strong> — ${o.pending?'Pendiente de valoración':o.desc}</li>`).join('') || '<li>No has seleccionado servicios todavía.</li>'}</ul><h3>Servicios pendientes de valoración</h3><ul>${t.items.filter(o=>o.pending).map(o=>`<li>${o.name}: Pendiente de valoración</li>`).join('') || '<li>No hay servicios pendientes.</li>'}</ul><p class="notice">Información sin IVA. Estimación no contractual y sin garantías de resultados.</p></div><button class="btn btn-primary mt-5" id="downloadPdf" type="button">Descargar PDF</button>`;
+    document.querySelectorAll('[data-total]').forEach((input)=>input.addEventListener('input', validateSummary));
+    document.getElementById('downloadPdf').addEventListener('click', downloadPdf);
+  }
+  const encodeUtf16Hex = (text) => Array.from(new TextEncoder().encode(String(text))).length && Array.from(String(text)).flatMap((char) => { const code = char.charCodeAt(0); return [code >> 8, code & 255]; }).map((byte) => byte.toString(16).padStart(2, '0')).join('');
+  const pdfText = (value) => `<FEFF${encodeUtf16Hex(value)}>`;
+  const wrap = (text, max = 78) => String(text).split(' ').reduce((lines, word) => { const line = lines[lines.length - 1] || ''; if((line + ' ' + word).trim().length > max) lines.push(word); else lines[lines.length - 1] = (line + ' ' + word).trim(); return lines; }, ['']);
+  function buildPdf(blocks){
+    const pages = []; let currentPage = []; let y = 792;
+    const footerSpace = 54;
+    const addPage = () => { pages.push(currentPage); currentPage = []; y = 792; };
+    blocks.forEach(({ text, size = 10, bold = false, gap = 16 }) => { if(y - gap < footerSpace) addPage(); currentPage.push({ text, size, bold, y }); y -= gap; });
+    pages.push(currentPage);
+    const objects = ['<< /Type /Catalog /Pages 2 0 R >>', '', '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>', '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'];
+    const pageRefs = [];
+    pages.forEach((page, index) => {
+      const content = ['0.95 0.97 1 rg 0 760 595 82 re f', '0.05 0.24 0.42 rg 0 760 595 6 re f'];
+      page.forEach((line) => content.push(`BT /${line.bold ? 'F2' : 'F1'} ${line.size} Tf 54 ${line.y} Td ${pdfText(line.text)} Tj ET`));
+      content.push(`BT /F1 9 Tf 54 32 Td ${pdfText(`${business.commercialName} · Página ${index + 1} de ${pages.length}`)} Tj ET`);
+      const contentNumber = objects.length + 2;
+      pageRefs.push(`${objects.length + 1} 0 R`);
+      objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${contentNumber} 0 R >>`);
+      objects.push(`<< /Length ${content.join('\n').length} >>\nstream\n${content.join('\n')}\nendstream`);
+    });
+    objects[1] = `<< /Type /Pages /Kids [${pageRefs.join(' ')}] /Count ${pages.length} >>`;
+    let pdf = '%PDF-1.4\n'; const offsets = [0]; objects.forEach((obj, index) => { offsets.push(pdf.length); pdf += `${index + 1} 0 obj\n${obj}\nendobj\n`; });
+    const xref = pdf.length; pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n` + offsets.slice(1).map((offset) => `${String(offset).padStart(10, '0')} 00000 n `).join('\n') + `\ntrailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+    return new Blob([pdf], { type: 'application/pdf' });
+  }
+  function downloadPdf(){
+    if(!validateSummary()) return;
+    const t = totals();
+    const edited = Object.fromEntries([...document.querySelectorAll('[data-total]')].map((input) => [input.dataset.total, Number(input.value)]));
+    const blocks = [
+      { text: 'Flopitec', size: 18, bold: true, gap: 22 }, { text: 'Propuesta orientativa de marketing', size: 16, bold: true, gap: 22 }, { text: `Fecha: ${dateStamp()} · Referencia ${refStamp()}`, gap: 20 },
+      { text: `Objetivos seleccionados: ${[...selectedGoals].map(id => steps.find(s=>s.id===id)?.title).filter(Boolean).join(', ')}`, gap: 22 },
+      { text: 'Estimación económica', size: 13, bold: true, gap: 18 }, { text: `Inversión inicial: ${fmt(edited.initial)}` }, { text: `Descuento del ${Math.round(t.rate * 100)} %: ${fmt(edited.discount)}` }, { text: `Total puntual: ${fmt(edited.totalOneTime)}` }, { text: `Servicios mensuales: ${fmt(edited.monthlyOwn)}` }, { text: `Servicios anuales: ${fmt(edited.annual)}` }, { text: `Honorarios publicitarios: ${fmt(t.items.filter(o=>o.id==='ads-gestion').reduce((a,o)=>a+(o.monthly||0),0))}` }, { text: `Presupuesto publicitario separado: ${fmt(edited.ad)}` }, { text: `Costes externos: ${fmt(edited.external)}`, gap: 22 },
+      { text: 'Diseño y comunicación · Página web · Fotografía aérea con dron · 1.290 € · ¿Información sin IVA? ¡Sí!', gap: 20 },
+      { text: 'Servicios seleccionados', size: 13, bold: true, gap: 18 },
+      ...(t.items.length ? t.items.flatMap((item) => wrap(`- ${item.name}: ${item.pending ? 'Pendiente de valoración' : item.desc}`)) : ['- No se han seleccionado servicios.']).map((text) => ({ text })),
+      { text: 'Servicios pendientes de valoración', size: 13, bold: true, gap: 18 },
+      ...(t.items.filter((item) => item.pending).length ? t.items.filter((item) => item.pending).map((item) => `- ${item.name}: Pendiente de valoración`) : ['- No hay servicios pendientes.']).map((text) => ({ text })),
+      { text: 'Condiciones comerciales', size: 13, bold: true, gap: 18 },
+      ...wrap('Información sin IVA. Esta estimación no contractual puede variar según alcance, contenidos, materiales, proveedores, desplazamientos, tarifas externas y revisión técnica. No garantizamos posiciones en buscadores, visitas, contactos, ventas ni resultados publicitarios.').map((text)=>({ text })),
+      ...wrap('Condiciones de pago: 50 % al aceptar, 30 % al aprobar la fase principal y 20 % antes de publicar o entregar. En trabajos pequeños puede solicitarse el pago completo al comenzar.').map((text)=>({ text })),
+      ...wrap('Condiciones de trabajos con dron: sujetos a ubicación, normativa aplicable, seguridad, meteorología, restricciones del espacio aéreo, permisos y viabilidad técnica.').map((text)=>({ text })),
+      { text: 'Datos de contacto de Flopitec', size: 13, bold: true, gap: 18 },
+      { text: business.commercialName }, { text: business.address.full }, { text: `Teléfono: ${business.phone.main} · WhatsApp: ${business.whatsapp.label}` }, { text: `Correo: ${business.email} · ${business.address.locality}, ${business.address.province}` },
+    ];
+    const blob = buildPdf(blocks);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a'); link.href = url; link.download = `estimacion-marketing-flopitec-${dateStamp()}.pdf`; link.click(); URL.revokeObjectURL(url);
+  }
+  document.getElementById('prevStep').addEventListener('click',()=>{current--;render();});
+  document.getElementById('nextStep').addEventListener('click',()=>{const list=visibleSteps(); if(current < list.length-1) current++; render();});
+  document.getElementById('resetEstimator').addEventListener('click',()=>{ if(confirm('¿Reiniciar la estimación y borrar los datos guardados?')){ sessionStorage.removeItem(storageKey); selectedGoals.clear(); selectedGoals.add('web'); selected.clear(); current = 0; render(); } });
+  restoreState(); render();
+</script>
+<style>
+  .progress-meta,.estimator-actions{display:flex;justify-content:space-between;gap:1rem;align-items:center}.progress-track{height:.8rem;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:.75rem}.progress-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .25s ease}.option-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1rem;margin-top:1.25rem}.choice{display:flex;gap:.85rem;border:1px solid var(--line);border-radius:1rem;padding:1rem;cursor:pointer;background:color-mix(in srgb,var(--surface) 88%,transparent)}.choice:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent)}fieldset{border:0;margin:0;padding:0}legend{padding:0}.choice input{margin-top:.25rem}.choice span{display:grid;gap:.35rem}.choice small,.choice em{color:var(--muted);font-style:normal}.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin:1rem 0}.summary-grid label{display:grid;gap:.35rem;font-weight:800}.summary-grid input{border:1px solid var(--line);border-radius:.75rem;padding:.75rem;background:var(--surface);color:var(--ink)}.summary-print h2,.summary-print h3{margin-top:1rem;font-weight:950}.summary-print ul{padding-left:1.2rem}.notice,.error-message{border-left:3px solid var(--accent);padding:.85rem 1rem;background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:.8rem}.error-message{border-color:#b42318;background:#fff1f0;color:#7a271a;margin-top:1rem}.choice:focus-within,.btn:focus-visible,.summary-grid input:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 35%,transparent);outline-offset:3px}@media (prefers-reduced-motion:reduce){.progress-track span,.choice{transition:none!important}}
+</style>

@@ -23,7 +23,7 @@ export interface MarketingCategory {
   href: string;
 }
 
-export const marketingEstimatorEnabled = false;
+export const marketingEstimatorEnabled = true;
 export const marketingEstimatorPath = "/marketing/calcula-tu-presupuesto/";
 export const marketingFallbackAnchor = "#servicios-y-precios";
 export const marketingEstimatorHref = marketingEstimatorEnabled ? marketingEstimatorPath : marketingFallbackAnchor;
