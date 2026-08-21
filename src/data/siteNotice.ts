@@ -1,11 +1,11 @@
 // Configuración del aviso global activo. Cambiar el id y el contenido al iniciar una nueva campaña.
 export const siteNotice = {
   enabled: true,
-  id: 'vuelta-rutina-agosto-2026',
-  eyebrow: 'Ya estamos de vuelta',
+  id: 'verano-agosto-2026',
+  eyebrow: 'Este verano',
   title: 'Pon tu ordenador a punto para la vuelta a la rutina',
   intro:
-    'Desde el lunes 17 de agosto volvemos a atenderte con nuestro horario habitual de verano.',
+    'Durante agosto te atendemos con nuestro horario de verano. Consulta aquí los días y horas antes de venir.',
   scheduleId: 'summer',
   commercialTitle: '¿Tu ordenador va lento?',
   commercialText:
