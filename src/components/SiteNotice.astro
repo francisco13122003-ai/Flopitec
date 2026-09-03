@@ -21,8 +21,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
           <p class="site-notice__intro">{siteNotice.intro}</p>
 
           <div class="site-notice__schedule">
-            <h3>{schedule.name}</h3>
-            <p class="site-notice__period">{schedule.period}</p>
+            <h3>Horario activo</h3>
             {schedule.lines.map((line) => <p>{line}</p>)}
           </div>
 
