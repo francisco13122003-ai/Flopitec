@@ -5,7 +5,7 @@ import CTASection from '@/components/CTASection.astro';
 
 <BaseLayout
   title="Herramientas útiles para clientes | Flopitec"
-  description="Accede a las herramientas de Flopitec para asistencia remota, convertir imágenes, crear códigos QR y consultar información técnica del navegador directamente desde tu dispositivo."
+  description="Accede a herramientas para asistencia remota, convertir imágenes, crear códigos QR y consultar información técnica del navegador y del hardware de tu dispositivo."
   path="/herramientas/"
 >
   <section class="section">
@@ -34,6 +34,23 @@ import CTASection from '@/components/CTASection.astro';
           </p>
           <div class="mt-auto pt-6">
             <a class="btn btn-primary" href="https://anydesk.com/es/downloads/windows" target="_blank" rel="noopener noreferrer" aria-label="Descargar AnyDesk desde la página oficial en español, se abre en una pestaña nueva">Descargar AnyDesk</a>
+          </div>
+        </article>
+
+        <article class="card flex flex-col p-6">
+          <p class="eyebrow">Diagnóstico del sistema</p>
+          <h2 class="mt-3 text-2xl font-black">Información del hardware con HWiNFO</h2>
+          <p class="mt-3 text-[var(--muted)]">
+            Consulta información detallada sobre los componentes de tu ordenador y supervisa temperaturas, sensores y otros parámetros del sistema.
+          </p>
+          <ul class="mt-5 list-disc space-y-2 pl-5 text-[var(--muted)]">
+            <li>Información detallada de procesador, placa base, memoria y otros componentes.</li>
+            <li>Temperaturas y sensores del sistema.</li>
+            <li>Datos de unidades de almacenamiento y dispositivos.</li>
+            <li>Informes técnicos para facilitar la identificación del hardware.</li>
+          </ul>
+          <div class="mt-auto pt-6">
+            <a class="btn btn-primary" href="https://www.hwinfo.com/download/" target="_blank" rel="noopener noreferrer" aria-label="Descargar HWiNFO desde la página oficial, se abre en una pestaña nueva">Descargar HWiNFO</a>
           </div>
         </article>
 
@@ -96,7 +113,7 @@ import CTASection from '@/components/CTASection.astro';
       <div class="card p-6 md:p-8">
         <h2 class="text-3xl font-black">Privacidad y uso seguro</h2>
         <p class="mt-3 max-w-3xl text-[var(--muted)]">
-          Las herramientas de conversión, QR e información técnica procesan los datos directamente en tu dispositivo. Los archivos, textos, contraseñas Wi-Fi e informes no se envían ni se almacenan en los servidores de Flopitec. Para una asistencia remota, utiliza AnyDesk únicamente cuando la conexión haya sido acordada previamente con nosotros.
+          El convertidor, el generador de códigos QR y la herramienta de información del dispositivo procesan los datos directamente en tu dispositivo. Los archivos, textos, contraseñas Wi-Fi e informes no se envían ni se almacenan en los servidores de Flopitec. Para una asistencia remota, utiliza AnyDesk únicamente cuando la conexión haya sido acordada previamente con nosotros. Para descargar HWiNFO, utiliza su página oficial enlazada arriba.
         </p>
       </div>
     </div>
