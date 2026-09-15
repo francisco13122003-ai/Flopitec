@@ -6,8 +6,6 @@ export const business = {
   mapsUrl: 'https://share.google/7l0ndiNV0vNxQjSyY', reviewUrl: 'https://g.page/r/CRiakERZ_Fd8EAE/review', slogan: 'Tus equipos en las mejores manos',
 } as const;
 export const schedules = {
-  regular: { id: 'regular', name: 'Temporada normal', period: 'Del 1 de septiembre al 30 de junio', lines: ['Lunes a viernes: 10:00–14:00', 'Lunes, miércoles y viernes: 17:30–20:00', 'Sábado: 10:30–14:00', 'Domingo cerrado'] },
-  summer: { id: 'summer', name: 'Horario de verano', period: 'Del 1 de julio al 31 de agosto', lines: ['Lunes a viernes: 8:30–15:00', 'Sábado cerrado', 'Domingo cerrado'] },
+  regular: { id: 'regular', name: 'Horario actual', period: '', lines: ['Lunes: 10:00–14:00 y 15:30–20:00', 'Martes: 10:00–14:00', 'Miércoles: 10:00–14:00', 'Jueves: 10:00–14:00', 'Viernes: 10:00–14:00 y 17:30–20:00', 'Sábado: 10:30–14:00', 'Domingo cerrado'] },
 } as const;
-export function isSummerSchedule(date = new Date()): boolean { const month = date.getMonth() + 1; return month === 7 || month === 8; }
-export function getActiveSchedule(date = new Date()) { return isSummerSchedule(date) ? schedules.summer : schedules.regular; }
+export function getActiveSchedule() { return schedules.regular; }
