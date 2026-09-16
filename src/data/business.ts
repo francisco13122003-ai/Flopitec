@@ -6,6 +6,6 @@ export const business = {
   mapsUrl: 'https://share.google/7l0ndiNV0vNxQjSyY', reviewUrl: 'https://g.page/r/CRiakERZ_Fd8EAE/review', slogan: 'Tus equipos en las mejores manos',
 } as const;
 export const schedules = {
-  regular: { id: 'regular', name: 'Horario actual', period: '', lines: ['Lunes: 10:00–14:00 y 15:30–20:00', 'Martes: 10:00–14:00', 'Miércoles: 10:00–14:00', 'Jueves: 10:00–14:00', 'Viernes: 10:00–14:00 y 17:30–20:00', 'Sábado: 10:30–14:00', 'Domingo cerrado'] },
+  regular: { id: 'regular', name: 'Horario actual', period: '', lines: ['Lunes: 10:00–14:00 y 17:30–20:00', 'Martes: 10:00–14:00', 'Miércoles: 10:00–14:00', 'Jueves: 10:00–14:00', 'Viernes: 10:00–14:00 y 17:30–20:00', 'Sábado: 10:30–14:00', 'Domingo cerrado'] },
 } as const;
 export function getActiveSchedule() { return schedules.regular; }
