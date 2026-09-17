@@ -4,7 +4,9 @@ import { business } from '@/data/business';
 ---
 <header class="sticky top-0 z-40 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_92%,transparent)] backdrop-blur">
   <nav class="container flex flex-wrap items-center justify-between gap-3 py-3" aria-label="Menú principal">
-    <a href="/" class="rounded-sm text-xl font-black tracking-tight text-[var(--accent)] md:text-2xl" aria-label="Flopitec Servicios Informáticos - Inicio">Flopitec</a>
+    <a href="/" class="shrink-0 rounded-sm" aria-label="Flopitec Servicios Informáticos - Inicio">
+      <img src="/images/flopitec-logo.svg" alt="Flopitec Servicios Informáticos" class="block h-8 w-auto max-w-full md:h-9" />
+    </a>
     <div class="order-3 flex w-full gap-2 overflow-x-auto pb-1 md:order-2 md:w-auto md:flex-wrap md:justify-center md:overflow-visible md:pb-0">
       {navigation.map((item)=><a class="whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold text-[var(--muted)] hover:bg-[var(--soft)] hover:text-[var(--ink)]" href={item.href}>{item.label}</a>)}
     </div>
