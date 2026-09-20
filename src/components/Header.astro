@@ -2,14 +2,27 @@
 import { navigation } from '@/data/navigation';
 import { business } from '@/data/business';
 ---
-<header class="sticky top-0 z-40 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--surface)_92%,transparent)] backdrop-blur">
-  <nav class="container flex flex-wrap items-center justify-between gap-3 py-3" aria-label="Menú principal">
-    <a href="/" class="shrink-0 rounded-sm" aria-label="Flopitec Servicios Informáticos - Inicio">
-      <img src="/images/flopitec-logo.svg" alt="Flopitec Servicios Informáticos" class="block h-8 w-auto max-w-full md:h-9" />
+
+<header class="site-header">
+  <nav class="container site-header__inner" aria-label="Menú principal">
+    <a href="/" class="site-header__brand" aria-label="Flopitec Servicios Informáticos - Inicio">
+      <img src="/images/flopitec-logo.svg" alt="Flopitec Servicios Informáticos" width="174" height="36" />
     </a>
-    <div class="order-3 flex w-full gap-2 overflow-x-auto pb-1 md:order-2 md:w-auto md:flex-wrap md:justify-center md:overflow-visible md:pb-0">
-      {navigation.map((item)=><a class="whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold text-[var(--muted)] hover:bg-[var(--soft)] hover:text-[var(--ink)]" href={item.href}>{item.label}</a>)}
+    <div class="site-header__links">
+      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
     </div>
-    <a class="btn btn-primary order-2 !px-4 !py-2 text-sm md:order-3" href={business.whatsapp.url} aria-label="Contactar con Flopitec por WhatsApp">WhatsApp</a>
+    <a class="site-header__cta" href={business.whatsapp.url} aria-label="Contactar con Flopitec por WhatsApp">WhatsApp</a>
   </nav>
 </header>
+
+<style>
+  .site-header{position:sticky;top:0;z-index:40;border-bottom:1px solid #474747;background:rgb(5 5 5/.96)}
+  .site-header__inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.65rem 1rem;min-height:4.5rem}
+  .site-header__brand{display:inline-flex;width:max-content;padding:.35rem 0;border-radius:2px}
+  .site-header__brand img{display:block;width:auto;height:2rem;max-width:100%}
+  .site-header__cta{display:inline-flex;min-height:2.55rem;align-items:center;padding:.55rem .85rem;border:1px solid var(--accent);border-radius:3px;background:var(--accent);color:#111;font-size:.82rem;font-weight:850;text-decoration:none}
+  .site-header__links{grid-column:1/-1;display:flex;width:calc(100% + 2rem);margin-left:-1rem;padding:0 1rem;overflow-x:auto;border-top:1px solid #242424;scrollbar-width:thin}
+  .site-header__links a{flex:0 0 auto;padding:.8rem .7rem .75rem;border-bottom:2px solid transparent;color:var(--muted);font-size:.8rem;font-weight:700;text-decoration:none;white-space:nowrap}
+  .site-header__links a:hover,.site-header__links a:focus-visible{border-bottom-color:var(--accent);color:var(--ink)}
+  @media (min-width:980px){.site-header__inner{grid-template-columns:auto 1fr auto;min-height:5rem}.site-header__brand img{height:2.25rem}.site-header__links{grid-column:auto;justify-content:center;width:auto;margin:0;padding:0;border:0;overflow:visible}.site-header__links a{padding:1.75rem .55rem 1.6rem;font-size:.78rem}.site-header__cta{padding-inline:1.05rem}}
+</style>
