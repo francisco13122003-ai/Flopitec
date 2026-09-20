@@ -7,7 +7,7 @@ const { id, title, intro = [], groups = [], notices = [] } = Astro.props;
     {intro.map((paragraph) => <p class="mt-4 max-w-3xl text-[var(--muted)]">{paragraph}</p>)}
     <div class="price-card-grid mt-8">
       {groups.map((group) => (
-        <article class="card p-5">
+        <article class="price-group">
           <h3 class="text-xl font-black">{group.title}</h3>
           <ul class="compact-list">
             {group.items.map((item) => <li>{item}</li>)}
@@ -18,3 +18,6 @@ const { id, title, intro = [], groups = [], notices = [] } = Astro.props;
     {notices.length > 0 && <ul class="notice-list mt-6">{notices.map((notice) => <li>{notice}</li>)}</ul>}
   </div>
 </section>
+<style>
+  .price-card-grid{display:grid;border-top:1px solid var(--line)}.price-group{display:grid;grid-template-columns:minmax(12rem,.35fr) 1fr;gap:2rem;padding:clamp(1.25rem,3vw,2rem) 0;border-bottom:1px solid var(--line)}.price-group h3{font-size:clamp(1.2rem,2vw,1.5rem)}.price-group :global(.compact-list){margin-top:0;columns:2 18rem}@media(max-width:650px){.price-group{grid-template-columns:1fr;gap:.5rem}.price-group :global(.compact-list){columns:1}}
+</style>

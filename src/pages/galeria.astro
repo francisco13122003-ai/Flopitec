@@ -1,5 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'; import CTASection from '@/components/CTASection.astro';
-const images = ['fachada','mostrador','zona técnica'];
+const images = [
+ {src:'/images/flopitec-fachada.webp',alt:'Fachada del taller Flopitec en La Zubia'},
+ {src:'/images/flopitec-mostrador.webp',alt:'Mostrador de atención del taller Flopitec'},
+ {src:'/images/flopitec-taller-reparacion.webp',alt:'Zona técnica de reparación de Flopitec'},
+ {src:'/images/flopitec-equipo-reparando.webp',alt:'Equipo electrónico durante una reparación en Flopitec'},
+];
 ---
-<BaseLayout title="Galería | Flopitec" description="Espacio preparado para imágenes reales del taller Flopitec cuando estén disponibles." path="/galeria/"><section class="section"><div class="container"><p class="eyebrow">Galería</p><h1 class="mt-3 text-4xl font-black">Imágenes reales pendientes</h1><p class="mt-4 max-w-3xl text-[var(--muted)]">Esta V1 no inventa fotografías. Los bloques indican espacios reservados para añadir fotos reales del taller cuando estén revisadas.</p><div class="mt-8 grid-auto">{images.map((image)=><div class="placeholder" role="img" aria-label={`Imagen real pendiente: ${image}`}></div>)}</div></div></section><CTASection title="¿Quieres conocer el taller?" text="Puedes visitarnos en La Zubia o consultar ubicación y horario en la página de contacto." /></BaseLayout>
+<BaseLayout title="Galería | Flopitec" description="Imágenes reales del taller Flopitec, su zona de atención y el espacio técnico de reparación en La Zubia." path="/galeria/">
+<header class="page-intro"><div class="container"><p class="page-label">Galería</p><h1>El taller, sin imágenes de catálogo</h1><p class="page-intro__lede">Una mirada al espacio real en el que recibimos, revisamos y reparamos los equipos en La Zubia.</p></div></header>
+<section class="editorial-section"><div class="container gallery-grid">{images.map((image,index)=><figure class:list={{featured:index===0}}><img src={image.src} alt={image.alt} width="960" height="640" loading={index===0?'eager':'lazy'} decoding="async"/><figcaption>{image.alt}</figcaption></figure>)}</div></section>
+<CTASection title="¿Quieres conocer el taller?" text="Puedes visitarnos en La Zubia o consultar ubicación y horario en la página de contacto." />
+</BaseLayout>
+<style>.gallery-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:1rem}.gallery-grid figure{margin:0}.gallery-grid .featured{grid-row:span 2}.gallery-grid img{display:block;width:100%;height:100%;min-height:16rem;object-fit:cover;border-radius:2px}.gallery-grid .featured img{min-height:34rem}.gallery-grid figcaption{padding:.65rem 0;color:#999;font-size:.78rem}@media(max-width:700px){.gallery-grid{grid-template-columns:1fr}.gallery-grid .featured{grid-row:auto}.gallery-grid .featured img{min-height:20rem}}</style>
