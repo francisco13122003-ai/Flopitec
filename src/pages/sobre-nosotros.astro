@@ -76,7 +76,7 @@ const workshopImages = [
       <h2 id="about-trust-title" class="sr-only">Lo que define a Flopitec</h2>
       <div class="about-card-grid about-card-grid--four">
         {trustCards.map((card) => (
-          <article class="card about-card">
+          <article class="about-card">
             <h3>{card.title}</h3>
             <p>{card.text}</p>
           </article>
@@ -102,7 +102,7 @@ const workshopImages = [
       </div>
       <div class="about-card-grid about-card-grid--four">
         {workCards.map((card) => (
-          <article class="card about-card about-card--step">
+          <article class="about-card about-card--step">
             <h3>{card.title}</h3>
             <p>{card.text}</p>
           </article>
@@ -118,13 +118,13 @@ const workshopImages = [
         <h2>Soluciones para particulares y empresas</h2>
       </div>
       <div class="about-audience-grid">
-        <article class="card about-audience-card">
+        <article class="about-audience-card">
           <h3>Particulares</h3>
           <p>Reparamos y configuramos los equipos que utilizas cada día: ordenadores, portátiles, móviles, consolas, televisores, impresoras, redes domésticas y otros dispositivos electrónicos.</p>
           <p>Te ayudamos tanto con una avería concreta como con mejoras de rendimiento, mantenimiento, configuración o recuperación de información.</p>
           <a class="btn btn-primary" href="/servicios/">Ver servicios</a>
         </article>
-        <article class="card about-audience-card">
+        <article class="about-audience-card">
           <h3>Empresas y profesionales</h3>
           <p>Ofrecemos soporte informático, mantenimiento, asistencia remota y presencial, redes, puestos de trabajo, copias de seguridad, configuración de equipos y resolución de incidencias.</p>
           <p>Nos adaptamos a las necesidades reales de cada negocio para reducir interrupciones y mantener sus herramientas de trabajo operativas.</p>
@@ -162,7 +162,7 @@ const workshopImages = [
   </section>
 
   <section class="section about-section">
-    <div class="container card about-final-cta">
+    <div class="container about-final-cta">
       <h2>¿Hablamos de tu equipo?</h2>
       <p>Cuéntanos qué problema tiene tu dispositivo o qué necesita tu empresa. Te orientaremos con claridad para encontrar la solución más adecuada.</p>
       <div>
@@ -216,4 +216,8 @@ const workshopImages = [
     .about-final-cta div { flex-direction: column; }
     .about-final-cta .btn, .about-audience-card .btn { width: 100%; }
   }
+</style>
+
+<style>
+.about-card-grid{gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}.about-card{border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#090909}.about-card--step{background:#090909}.about-audience-grid{gap:0;border-top:1px solid var(--line)}.about-audience-card{border-bottom:1px solid var(--line);border-radius:0;background:transparent}.about-audience-card:first-child{border-right:1px solid var(--line)}.about-sustainability img,.about-gallery img{border-radius:2px;box-shadow:none}.about-gallery{grid-template-columns:1.35fr .8fr .8fr}.about-gallery img:first-child{min-height:25rem}.about-final-cta{display:grid;grid-template-columns:1fr .8fr;gap:2rem;border-block:1px solid var(--line);border-radius:0;text-align:left;background:#0b0b0b}.about-final-cta p{margin-inline:0}.about-final-cta div{justify-content:flex-start}@media(max-width:700px){.about-audience-card:first-child{border-right:0}.about-gallery,.about-final-cta{grid-template-columns:1fr}.about-gallery img:first-child{min-height:auto}}
 </style>

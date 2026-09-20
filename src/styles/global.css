@@ -21,4 +21,30 @@ html{scroll-behavior:smooth}body{margin:0;background:var(--surface);color:var(--
 @media (min-width:768px){.page-background__image{background-image:var(--page-bg-desktop);background-attachment:fixed;transform:none}.page-background__overlay{background:radial-gradient(circle at 18% 24%,rgb(0 0 0/.42),transparent 40%),radial-gradient(circle at 72% 12%,rgb(249 115 22/.10),transparent 32%),linear-gradient(180deg,rgb(0 0 0/.44),rgb(0 0 0/.34) 38%,rgb(0 0 0/.48)),rgb(0 0 0/.04)}.site-shell{background:linear-gradient(180deg,rgb(5 5 5/.18),rgb(5 5 5/.28))}}
 @media (prefers-reduced-motion:reduce){.page-background__image{background-attachment:scroll;transform:none}}
 
+/* Editorial system for internal pages. Functional panels keep the `.card` hook,
+   but the shared visual language is deliberately square, quiet and structural. */
+:root{--radius:.25rem;--shadow:0 12px 32px rgb(0 0 0/.18)}
+.skip-link{border-radius:2px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn{min-height:2.85rem;border-radius:2px;padding:.8rem 1.1rem;border-color:#555;box-shadow:none;text-decoration:none;transition:background .18s ease,border-color .18s ease,color .18s ease}
+.btn:hover{transform:none;border-color:var(--ink);background:#1b1b1b}.btn-primary{border-color:var(--accent)}.btn-primary:hover{background:#ff8a34;border-color:#ff8a34}
+.card{border-radius:var(--radius);box-shadow:none;background:#0b0b0b}
+.eyebrow,.page-label{font-size:.74rem;letter-spacing:.11em}
+.page-intro{padding:clamp(3.5rem,8vw,7rem) 0 clamp(2.75rem,6vw,5rem);border-bottom:1px solid var(--line);background:#070707}
+.page-intro h1{max-width:15ch;margin-top:1rem;font-size:clamp(2.65rem,7vw,5.7rem);font-weight:950;line-height:.94;letter-spacing:-.055em}
+.page-intro__lede{max-width:48rem;margin-top:1.5rem;color:var(--muted);font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.7}
+.editorial-section{padding:clamp(3rem,7vw,6rem) 0;border-bottom:1px solid var(--line);background:#080808}
+.editorial-heading{display:grid;gap:1rem;margin-bottom:clamp(1.75rem,4vw,3rem)}
+.editorial-heading h2{font-size:clamp(2rem,4.5vw,3.6rem);font-weight:950;line-height:1;letter-spacing:-.04em}
+.editorial-heading p{max-width:46rem;color:var(--muted);line-height:1.7}
+.editorial-grid,.editorial-list{display:grid;border-top:1px solid var(--line)}
+.editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.editorial-item{display:grid;gap:.8rem;min-width:0;padding:clamp(1.25rem,3vw,2rem);border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#090909}
+.editorial-item:nth-child(2n){border-right:0}.editorial-item h2,.editorial-item h3{font-size:clamp(1.25rem,2.3vw,1.65rem);font-weight:900;line-height:1.15}.editorial-item p{color:var(--muted);line-height:1.65}
+.text-link,.inline-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--accent);font-weight:850;text-decoration:none}.text-link:hover,.inline-link:hover{text-decoration:underline;text-underline-offset:.25em}
+.tool-panel{border:1px solid var(--line);border-radius:2px;background:#090909}
+.prose-editorial{font-size:1.05rem;line-height:1.8}.prose-editorial :is(h2,h3){margin-top:2.75rem;line-height:1.15;letter-spacing:-.025em}.prose-editorial h2{font-size:clamp(1.65rem,3vw,2.2rem)}.prose-editorial h3{font-size:1.35rem}.prose-editorial :is(p,ul,ol){margin-top:1.15rem;color:#d0d0d0}.prose-editorial :is(ul,ol){padding-left:1.3rem}.prose-editorial a{color:var(--accent);text-decoration:underline;text-underline-offset:.2em}
+.site-shell{background:rgb(5 5 5/.82)}
+@media(max-width:640px){.editorial-grid{grid-template-columns:1fr}.editorial-item{border-right:0}.page-intro h1{overflow-wrap:anywhere}.btn{max-width:100%;white-space:normal;text-align:center}.grid-auto,.services-grid{grid-template-columns:1fr!important}}
+
 html.reveal-ready .reveal-item:not(.is-revealed){opacity:0;transform:translateY(var(--reveal-distance,24px))}html.reveal-ready .reveal-item{transition:opacity 680ms cubic-bezier(.22,1,.36,1) var(--reveal-delay,0ms),transform 680ms cubic-bezier(.22,1,.36,1) var(--reveal-delay,0ms);will-change:opacity,transform}html.reveal-ready .reveal-item.is-revealed{opacity:1;transform:translateY(0)}@media (max-width:640px){html.reveal-ready .reveal-item:not(.is-revealed){--reveal-distance:18px}html.reveal-ready .reveal-item{transition-delay:min(var(--reveal-delay,0ms),210ms)}}@media (prefers-reduced-motion:reduce){html.reveal-ready .reveal-item,html.reveal-ready .reveal-item:not(.is-revealed){opacity:1!important;transform:none!important;transition:none!important;will-change:auto!important}}

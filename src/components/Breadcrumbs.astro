@@ -1,4 +1,5 @@
 ---
 const { items=[] } = Astro.props;
 ---
-<nav class="container pt-6 text-sm text-[var(--muted)]" aria-label="Migas de pan"><ol class="flex flex-wrap gap-2"><li><a href="/">Inicio</a></li>{items.map((item)=><li> / <a href={item.href}>{item.label}</a></li>)}</ol></nav>
+<nav class="breadcrumbs" aria-label="Migas de pan"><ol class="container"><li><a href="/">Inicio</a></li>{items.map((item)=><li><span aria-hidden="true">›</span><a href={item.href} aria-current={item === items.at(-1) ? 'page' : undefined}>{item.label}</a></li>)}</ol></nav>
+<style>.breadcrumbs{border-bottom:1px solid var(--line);background:#070707}.breadcrumbs ol{display:flex;flex-wrap:wrap;gap:.45rem .7rem;margin-block:0;padding-block:.85rem;list-style:none;color:#999;font-size:.76rem;letter-spacing:.035em}.breadcrumbs li{display:flex;gap:.7rem;min-width:0}.breadcrumbs a{text-decoration:none}.breadcrumbs a:hover{color:var(--ink)}.breadcrumbs [aria-current="page"]{max-width:45ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#bbb}</style>
