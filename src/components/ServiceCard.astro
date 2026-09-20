@@ -8,7 +8,7 @@ const href = `/servicios/${service.slug}/`;
   </a>
   <div class="service-entry__body">
     <h3><a href={href}>{service.title}</a></h3>
-    <p>{service.short}</p>
+    <p>{service.phrase}</p>
     <ul aria-label={`Incluye ${service.title}`}>
       {service.featured.map((item) => <li>{item}</li>)}
     </ul>
