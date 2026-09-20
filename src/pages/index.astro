@@ -1,5 +1,132 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'; import Hero from '@/components/Hero.astro'; import ServiceCard from '@/components/ServiceCard.astro'; import ContactBlock from '@/components/ContactBlock.astro'; import CTASection from '@/components/CTASection.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import { business, getActiveSchedule } from '@/data/business';
 import { featuredServices } from '@/data/services';
+
+const schedule = getActiveSchedule();
 ---
-<BaseLayout path="/" title="Servicio técnico informático en La Zubia | Flopitec" description="Servicio técnico informático en La Zubia y Granada para ordenadores, portátiles, móviles y consolas. Taller local desde 2001."><Hero title="Servicio técnico informático en La Zubia y Granada" subtitle="Reparamos, configuramos y asesoramos sin vender de más. Te explicamos qué le ocurre a tu equipo y qué opciones reales tienes."/><section class="section"><div class="container"><p class="eyebrow">Servicios destacados</p><h2 class="mt-3 text-3xl font-black">Informática, reparación y segunda vida</h2><div class="services-grid mt-8">{featuredServices.map(service=><ServiceCard service={service}/>)}</div></div></section><section class="section bg-[var(--soft)] philosophy-section"><div class="container"><h2 class="text-3xl font-black philosophy-heading">Filosofía Flopitec</h2><div class="philosophy-grid"><article class="card p-5 philosophy-card"><h3 class="font-black">Explicaciones claras</h3><p class="mt-2 text-[var(--muted)]">Te contamos qué le ocurre al equipo, qué hemos hecho y por qué, con palabras sencillas.</p></article><article class="card p-5 philosophy-card"><h3 class="font-black">Reparar solo si compensa</h3><p class="mt-2 text-[var(--muted)]">Valoramos el coste de la reparación según el valor, la antigüedad y el uso del aparato.</p></article><article class="card p-5 philosophy-card"><h3 class="font-black">Solo lo que necesitas</h3><p class="mt-2 text-[var(--muted)]">Recomendamos la solución más adecuada para tu caso, sin cambios innecesarios ni gastos de más.</p></article><article class="card p-5 philosophy-card"><h3 class="font-black">Presupuesto con transparencia</h3><p class="mt-2 text-[var(--muted)]">Siempre que el diagnóstico lo permite, te informamos del coste antes de reparar. Algunas averías requieren pruebas previas para poder confirmarlas.</p></article></div></div></section><section class="section"><div class="container grid gap-6 md:grid-cols-2"><div><p class="eyebrow">Sostenibilidad</p><h2 class="mt-3 text-3xl font-black">Reparar antes que tirar</h2><p class="mt-4 text-[var(--muted)]">Apostamos por reutilización, equipos de segunda mano, reciclaje electrónico y pequeñas decisiones que alargan la vida útil de ordenadores, portátiles, móviles y consolas.</p></div><img class="hero-image" src="/images/reparar-antes-que-tirar.webp" alt="Cambio de batería de móvil en proceso de reparación" loading="lazy" decoding="async"/></div></section><section class="section bg-[var(--soft)]"><div class="container"><h2 class="text-3xl font-black">Nuestro taller</h2><p class="mt-3 text-[var(--muted)]">Conoce nuestra fachada, mostrador y zona técnica: espacios reales donde atendemos, asesoramos y reparamos tus equipos con cercanía.</p><div class="mt-6 grid-auto workshop-gallery"><img src="/images/flopitec-fachada.webp" alt="Fachada del taller de Flopitec en La Zubia" width="720" height="480" loading="lazy" decoding="async"/><img src="/images/flopitec-mostrador.webp" alt="Área de trabajo y mostrador de Flopitec" width="720" height="480" loading="lazy" decoding="async"/><img src="/images/flopitec-taller-reparacion.webp" alt="Zona técnica de reparación del taller de Flopitec" width="720" height="480" loading="lazy" decoding="async"/></div></div></section><section class="section"><div class="container"><h2 class="text-3xl font-black">Servicio local cerca de ti</h2><p class="mt-3 text-[var(--muted)]">Atendemos en La Zubia y Granada, con cercanía para Cájar, Ogíjares, Armilla, Huétor Vega, Monachil, alrededores y anillo metropolitano de Granada.</p></div></section><ContactBlock/><CTASection/></BaseLayout>
+
+<BaseLayout path="/" title="Servicio técnico informático en La Zubia | Flopitec" description="Servicio técnico informático en La Zubia y Granada para ordenadores, portátiles, móviles y consolas. Taller local desde 2001.">
+  <div class="home-page">
+    <Hero title="Servicio técnico informático en La Zubia y Granada" subtitle="Reparamos, configuramos y asesoramos sin vender de más. Te explicamos qué le ocurre a tu equipo y qué opciones reales tienes." />
+
+    <section class="home-section home-services" aria-labelledby="services-title">
+      <div class="container">
+        <header class="home-section__header">
+          <p>Servicios destacados</p>
+          <h2 id="services-title">Informática, reparación y segunda vida</h2>
+        </header>
+        <div class="home-services__grid">
+          {featuredServices.map((service) => (
+            <article class="home-service" data-home-service>
+              <a class="home-service__image" href={`/servicios/${service.slug}/`} aria-label={`Ver ${service.title}`}>
+                <img src={service.image} alt={service.imageAlt} width="720" height="450" loading="lazy" decoding="async" />
+              </a>
+              <div class="home-service__body">
+                <h3><a href={`/servicios/${service.slug}/`}>{service.title}</a></h3>
+                <ul>{service.featured.map((item) => <li>{item}</li>)}</ul>
+                <a class="home-service__link" href={`/servicios/${service.slug}/`}>Ver servicio <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-philosophy" aria-labelledby="philosophy-title">
+      <div class="container home-philosophy__grid">
+        <div class="home-philosophy__intro">
+          <p class="home-label">Nuestra forma de trabajar</p>
+          <h2 id="philosophy-title">Filosofía Flopitec</h2>
+        </div>
+        <div class="home-philosophy__principles">
+          <article><h3>Explicaciones claras</h3><p>Te contamos qué le ocurre al equipo, qué hemos hecho y por qué, con palabras sencillas.</p></article>
+          <article><h3>Reparar solo si compensa</h3><p>Valoramos el coste de la reparación según el valor, la antigüedad y el uso del aparato.</p></article>
+          <article><h3>Solo lo que necesitas</h3><p>Recomendamos la solución más adecuada para tu caso, sin cambios innecesarios ni gastos de más.</p></article>
+          <article><h3>Presupuesto con transparencia</h3><p>Siempre que el diagnóstico lo permite, te informamos del coste antes de reparar. Algunas averías requieren pruebas previas para poder confirmarlas.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-sustainability" aria-labelledby="sustainability-title">
+      <div class="container home-sustainability__grid">
+        <div class="home-sustainability__media"><img src="/images/reparar-antes-que-tirar.webp" alt="Cambio de batería de móvil en proceso de reparación" width="1200" height="800" loading="lazy" decoding="async" /></div>
+        <div class="home-sustainability__copy">
+          <p class="home-label">Sostenibilidad</p>
+          <h2 id="sustainability-title">Reparar antes que tirar</h2>
+          <p>Apostamos por reutilización, equipos de segunda mano, reciclaje electrónico y pequeñas decisiones que alargan la vida útil de ordenadores, portátiles, móviles y consolas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-workshop" aria-labelledby="workshop-title">
+      <div class="container">
+        <div class="home-workshop__heading"><h2 id="workshop-title">Nuestro taller</h2><p>Conoce nuestra fachada, mostrador y zona técnica: espacios reales donde atendemos, asesoramos y reparamos tus equipos con cercanía.</p></div>
+        <div class="home-workshop__gallery">
+          <img class="home-workshop__main" src="/images/flopitec-fachada.webp" alt="Fachada del taller de Flopitec en La Zubia" width="720" height="480" loading="lazy" decoding="async" />
+          <img src="/images/flopitec-mostrador.webp" alt="Área de trabajo y mostrador de Flopitec" width="720" height="480" loading="lazy" decoding="async" />
+          <img src="/images/flopitec-taller-reparacion.webp" alt="Zona técnica de reparación del taller de Flopitec" width="720" height="480" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-local" aria-labelledby="local-title">
+      <div class="container home-local__grid">
+        <div class="home-local__intro">
+          <p class="home-label">Taller y atención</p>
+          <h2 id="local-title">Servicio local cerca de ti</h2>
+          <p>Atendemos en La Zubia y Granada, con cercanía para Cájar, Ogíjares, Armilla, Huétor Vega, Monachil, alrededores y anillo metropolitano de Granada.</p>
+        </div>
+        <div class="home-contact">
+          <h3>Contacto</h3>
+          <address>{business.address.full}</address>
+          <a href={business.phone.mainHref}>{business.phone.main}</a>
+          <a href={business.phone.secondaryHref}>{business.phone.secondary}</a>
+          <a href={business.emailHref}>{business.email}</a>
+          <a class="home-contact__map" href={business.mapsUrl}>Ver ubicación <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="home-schedule">
+          <h3>{schedule.name}</h3>
+          {schedule.period && <p class="home-schedule__period">{schedule.period}</p>}
+          <div>{schedule.lines.map((line) => <p>{line}</p>)}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-cta" aria-labelledby="home-cta-title">
+      <div class="container home-cta__grid">
+        <h2 id="home-cta-title">¿Hablamos de tu equipo?</h2>
+        <div><p>Cuéntanos qué ocurre por WhatsApp o ven al taller. Te orientamos con claridad antes de decidir.</p><div class="home-cta__actions"><a href={business.whatsapp.url}>WhatsApp</a><a href="/contacto/">Contacto <span aria-hidden="true">→</span></a></div></div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .home-page{background:rgb(5 5 5/.78)}
+  .home-section{padding:clamp(4rem,8vw,7rem) 0;border-bottom:1px solid var(--line)}
+  .home-label,.home-section__header>p{margin:0;color:var(--accent);font-size:.73rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+  .home-section__header{display:grid;gap:1rem;margin-bottom:2.75rem}
+  .home-section__header h2,.home-philosophy h2,.home-workshop h2,.home-local h2,.home-sustainability h2,.home-cta h2{margin:0;font-size:clamp(2rem,4.5vw,4rem);font-weight:900;letter-spacing:-.04em;line-height:1.02;text-wrap:balance}
+  .home-services{background:#090909}
+  .home-services__grid{display:grid;border-top:1px solid #494949}
+  .home-service{display:grid;grid-template-columns:minmax(7.25rem,36%) 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid #373737}
+  .home-service__image{display:block;overflow:hidden;border-radius:2px;background:#111}
+  .home-service__image img{display:block;width:100%;height:100%;min-height:11rem;object-fit:cover;transition:transform .3s ease}
+  .home-service__image:hover img{transform:scale(1.025)}
+  .home-service__body{display:flex;min-width:0;flex-direction:column}
+  .home-service h3{margin:0;font-size:clamp(1.15rem,2.2vw,1.65rem);font-weight:850;line-height:1.1}.home-service h3 a{text-decoration:none}.home-service h3 a:hover{color:var(--accent)}
+  .home-service ul{display:grid;gap:.3rem;margin:.9rem 0;padding:0;list-style:none;color:var(--muted);font-size:.78rem;line-height:1.3}.home-service li::before{content:'—';margin-right:.45rem;color:#666}
+  .home-service__link{width:max-content;margin-top:auto;color:var(--accent);font-size:.8rem;font-weight:850;text-underline-offset:.25rem}
+  .home-philosophy{background:#111}
+  .home-philosophy__grid{display:grid;gap:3rem}.home-philosophy__intro{max-width:30rem}.home-philosophy__intro h2{margin-top:1rem}
+  .home-philosophy__principles{border-top:1px solid #555}.home-philosophy__principles article{display:grid;gap:.65rem;padding:1.4rem 0;border-bottom:1px solid #444}.home-philosophy__principles h3{margin:0;font-size:1.12rem}.home-philosophy__principles p{margin:0;color:var(--muted);line-height:1.6}
+  .home-sustainability{padding:0;background:#050505;border-bottom:1px solid var(--line)}.home-sustainability__grid{display:grid;width:100%;max-width:none}.home-sustainability__media img{display:block;width:100%;height:clamp(22rem,70vw,42rem);object-fit:cover}.home-sustainability__copy{padding:3rem max(1rem,calc((100vw - 1120px)/2));background:var(--accent);color:#111}.home-sustainability__copy .home-label{color:#4a2108}.home-sustainability__copy h2{margin-top:1rem;color:#111}.home-sustainability__copy>p:last-child{max-width:36rem;margin:1.5rem 0 0;font-size:1.05rem;line-height:1.65}
+  .home-workshop{background:#0b0b0b}.home-workshop__heading{display:grid;gap:1rem;margin-bottom:2rem}.home-workshop__heading p{max-width:42rem;margin:0;color:var(--muted);line-height:1.65}.home-workshop__gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.home-workshop__gallery img{display:block;width:100%;height:100%;min-height:10rem;object-fit:cover;border-radius:2px}.home-workshop__main{grid-column:1/-1;aspect-ratio:16/10}
+  .home-local{background:#101010}.home-local__grid{display:grid;gap:2.5rem}.home-local__intro h2{margin-top:1rem}.home-local__intro>p:last-child{max-width:37rem;margin:1.5rem 0 0;color:var(--muted);line-height:1.65}.home-contact,.home-schedule{padding-top:1rem;border-top:1px solid #555}.home-contact h3,.home-schedule h3{margin:0 0 1.2rem;font-size:.76rem;letter-spacing:.11em;text-transform:uppercase}.home-contact address{margin:0 0 1rem;font-style:normal;line-height:1.6}.home-contact>a{display:block;width:max-content;max-width:100%;margin:.4rem 0;text-underline-offset:.25rem}.home-contact__map{margin-top:1.4rem!important;color:var(--accent);font-weight:800}.home-schedule__period{color:var(--muted)}.home-schedule div{border-top:1px solid #333}.home-schedule div p{margin:0;padding:.65rem 0;border-bottom:1px solid #333;color:#d0d0d0;font-size:.86rem}
+  .home-cta{padding:clamp(3rem,6vw,5.5rem) 0;background:var(--accent);color:#111}.home-cta h2{color:#111}.home-cta__grid{display:grid;gap:2rem}.home-cta p{max-width:34rem;margin:0;font-size:1.05rem;line-height:1.6}.home-cta__actions{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;align-items:center;margin-top:1.5rem}.home-cta__actions a:first-child{padding:.8rem 1.15rem;border:1px solid #111;border-radius:3px;background:#111;color:#fff;font-weight:850;text-decoration:none}.home-cta__actions a:last-child{font-weight:850;text-underline-offset:.3rem}
+  @media (min-width:640px){.home-section__header{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start}.home-section__header>p{grid-column:1/span 3}.home-section__header h2{grid-column:4/-1}.home-services__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-service{grid-template-columns:1fr;padding:1.25rem}.home-service:nth-child(odd){padding-left:0;border-right:1px solid #373737}.home-service:nth-child(even){padding-right:0}.home-service__image{aspect-ratio:16/9}.home-service__image img{min-height:0}.home-service ul{min-height:6rem}.home-workshop__gallery{grid-template-columns:2fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr))}.home-workshop__main{grid-column:auto;grid-row:1/3}.home-local__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-local__intro{grid-column:1/-1}.home-cta__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (min-width:900px){.home-philosophy__grid{grid-template-columns:repeat(12,minmax(0,1fr));gap:1rem}.home-philosophy__intro{grid-column:1/span 4;position:sticky;top:7rem;align-self:start}.home-philosophy__principles{grid-column:6/-1}.home-philosophy__principles article{grid-template-columns:5fr 7fr;gap:1rem}.home-sustainability__grid{grid-template-columns:repeat(12,minmax(0,1fr))}.home-sustainability__media{grid-column:1/span 8}.home-sustainability__copy{grid-column:9/-1;display:flex;flex-direction:column;justify-content:flex-end;padding:3rem clamp(1.5rem,4vw,4rem)}.home-workshop__heading{grid-template-columns:1fr 1fr;align-items:end}.home-local__grid{grid-template-columns:repeat(12,minmax(0,1fr));gap:1rem}.home-local__intro{grid-column:1/span 5}.home-contact{grid-column:7/span 3}.home-schedule{grid-column:10/-1}.home-cta__grid{grid-template-columns:7fr 5fr}}
+  @media (max-width:374px){.home-service{grid-template-columns:1fr}.home-service__image{aspect-ratio:16/9}.home-service__image img{min-height:0}.home-workshop__gallery{grid-template-columns:1fr}.home-workshop__main{grid-column:auto}.home-cta__actions a:first-child{width:100%;text-align:center}}
+</style>

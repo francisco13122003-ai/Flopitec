@@ -2,4 +2,41 @@
 import { business, getActiveSchedule } from '@/data/business';
 const schedule = getActiveSchedule();
 ---
-<footer class="border-t border-[var(--line)] bg-[var(--soft)] py-10"><div class="container grid gap-8 md:grid-cols-3"><div><strong>{business.commercialName}</strong><p class="mt-2 text-[var(--muted)]">{business.slogan}. Servicio técnico local en La Zubia y Granada.</p></div><div><h2 class="text-base font-bold">Contacto</h2><p>{business.address.full}</p><p><a href={business.phone.mainHref}>{business.phone.main}</a> · <a href={business.emailHref}>{business.email}</a></p></div><div><p class="font-semibold">{schedule.name}</p>{schedule.lines.map(line=><p class="text-sm text-[var(--muted)]">{line}</p>)}</div></div><div class="container mt-8 flex flex-wrap gap-4 text-sm text-[var(--muted)]"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a></div></footer>
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <strong>{business.commercialName}</strong>
+      <p>{business.slogan}. Servicio técnico local en La Zubia y Granada.</p>
+    </div>
+    <div class="site-footer__contact">
+      <h2>Contacto</h2>
+      <address>{business.address.full}</address>
+      <a href={business.phone.mainHref}>{business.phone.main}</a>
+      <a href={business.emailHref}>{business.email}</a>
+    </div>
+    <div class="site-footer__schedule">
+      <h2>{schedule.name}</h2>
+      {schedule.lines.map((line) => <p>{line}</p>)}
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <span>© {new Date().getFullYear()} {business.commercialName}</span>
+    <nav aria-label="Enlaces legales"><a href="/aviso-legal/">Aviso legal</a><a href="/privacidad/">Privacidad</a><a href="/cookies/">Cookies</a></nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer{border-top:1px solid #555;background:#080808}
+  .site-footer__grid{display:grid;padding-block:3.5rem;gap:2.5rem}
+  .site-footer__grid>div{padding-top:1rem;border-top:1px solid var(--line)}
+  .site-footer__brand strong{display:block;max-width:13ch;font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.05}
+  .site-footer__brand p{max-width:28rem;margin:.9rem 0 0;color:var(--muted);line-height:1.6}
+  h2{margin:0 0 1rem;color:var(--muted);font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+  address{max-width:24rem;margin:0 0 .8rem;font-style:normal;line-height:1.55}
+  .site-footer__contact a{display:block;width:max-content;max-width:100%;margin-top:.35rem;text-underline-offset:.25rem}
+  .site-footer__schedule p{margin:0;padding:.38rem 0;border-bottom:1px solid #222;color:#ccc;font-size:.8rem}
+  .site-footer__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-block:1.15rem;border-top:1px solid var(--line);color:#999;font-size:.75rem}
+  .site-footer__bottom nav{display:flex;flex-wrap:wrap;gap:1.2rem}.site-footer__bottom a:hover{color:var(--accent)}
+  @media (min-width:768px){.site-footer__grid{grid-template-columns:repeat(12,minmax(0,1fr));gap:1rem}.site-footer__brand{grid-column:1/span 5}.site-footer__contact{grid-column:7/span 3}.site-footer__schedule{grid-column:10/-1}}
+</style>
