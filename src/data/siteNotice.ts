@@ -1,17 +1,23 @@
 // Configuración del aviso global activo. Cambiar el id y el contenido al iniciar una nueva campaña.
 export const siteNotice = {
   enabled: true,
-  id: 'horario-actual-2026',
-  eyebrow: 'HORARIO ACTUAL',
-  title: 'Horario de atención al público',
-  intro: 'Consulta nuestros días y horas de atención antes de venir.',
-  scheduleId: 'regular',
-  commercialTitle: '¿Tu ordenador va lento?',
-  commercialText:
-    'Podemos revisar qué está afectando a su rendimiento y valorar contigo si compensa realizar mantenimiento, ampliar la memoria, instalar un SSD u otra mejora según el equipo.',
+  id: 'asistencia-tecnica-2026-09',
+  eyebrow: 'ASISTENCIA TÉCNICA · LA ZUBIA Y GRANADA',
+  title: '¿Qué le pasa a tu equipo?',
+  intro:
+    'Cuéntanos el problema por WhatsApp o teléfono y te orientamos antes de reparar. Revisamos qué puede estar fallando, qué opciones tienes y si merece la pena intervenir, sin recomendar cambios innecesarios.',
   primaryCta: {
-    label: 'Ver opciones para mi ordenador',
-    href: '/servicios/pc-portatiles/',
+    label: 'Contactar con Flopitec',
+    href: '/contacto/',
+  },
+  secondaryCta: {
+    label: 'Ver servicios',
+    href: '/servicios/',
+  },
+  schedule: {
+    title: '¿Vas a venir al taller?',
+    linkLabel: 'Consultar horario',
+    href: '/contacto/#horario',
   },
   dismissLabel: 'Seguir navegando',
 } as const;
