@@ -17,16 +17,25 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
           aria-labelledby="site-notice-title"
           tabindex="-1"
         >
-          <button class="site-notice__close" type="button" aria-label="Cerrar aviso" data-site-notice-close>
-            <span aria-hidden="true">×</span>
-          </button>
-          <p class="site-notice__eyebrow">{siteNotice.eyebrow}</p>
-          <h2 id="site-notice-title">{siteNotice.title}</h2>
-          <p class="site-notice__intro">{siteNotice.intro}</p>
+          <header class="site-notice__header">
+            <p class="site-notice__eyebrow">{siteNotice.eyebrow}</p>
+            <button class="site-notice__close" type="button" aria-label="Cerrar aviso" data-site-notice-close>
+              <span aria-hidden="true">×</span>
+            </button>
+          </header>
 
-          <div class="site-notice__schedule">
-            <h3>Horario activo</h3>
-            {schedule.lines.map((line) => <p>{line}</p>)}
+          <div class="site-notice__main">
+            <div class="site-notice__lead">
+              <h2 id="site-notice-title">{siteNotice.title}</h2>
+              <p class="site-notice__intro">{siteNotice.intro}</p>
+            </div>
+
+            <div class="site-notice__schedule">
+              <h3>Horario activo</h3>
+              <div class="site-notice__schedule-lines">
+                {schedule.lines.map((line) => <p>{line}</p>)}
+              </div>
+            </div>
           </div>
 
           <p class="site-notice__workshop-note">
@@ -107,51 +116,58 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
     height: 100%;
     place-items: center;
     overflow-y: auto;
-    padding: 1rem;
-    background: rgb(0 0 0 / 72%);
+    padding: clamp(0.75rem, 3vw, 1.5rem);
+    background: rgb(0 0 0 / 78%);
   }
 
   .site-notice__dialog {
     position: relative;
-    width: min(100%, 36rem);
-    max-height: calc(100dvh - 2rem);
+    width: min(100%, 46rem);
+    max-height: calc(100dvh - clamp(1.5rem, 6vw, 3rem));
     overflow-x: hidden;
     overflow-y: auto;
-    padding: clamp(1.5rem, 5vw, 2.25rem);
-    border: 1px solid rgb(255 255 255 / 12%);
-    border-radius: 1.25rem;
-    background: #111;
+    padding: clamp(1.25rem, 4vw, 2.25rem);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: #0b0b0b;
     color: #f5f5f5;
-    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 55%);
-    text-align: center;
+    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 22%);
+    text-align: left;
   }
 
   .site-notice__dialog:focus {
     outline: none;
   }
 
+  .site-notice__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+
   .site-notice__close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
     display: inline-flex;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
     align-items: center;
     justify-content: center;
     padding: 0;
-    border: 0;
-    border-radius: 50%;
+    border: 1px solid transparent;
+    border-radius: 0;
     background: transparent;
     color: #ddd;
     font: inherit;
-    font-size: 1.75rem;
+    font-size: 1.65rem;
     line-height: 1;
     cursor: pointer;
   }
 
   .site-notice__close:hover {
-    background: rgb(255 255 255 / 8%);
+    border-color: var(--line);
+    background: rgb(255 255 255 / 5%);
     color: #fff;
   }
 
@@ -166,45 +182,77 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   .site-notice__eyebrow {
+    position: relative;
+    padding-left: 0.8rem;
+    margin: 0;
     color: var(--accent);
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
   }
 
+  .site-notice__eyebrow::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: var(--accent);
+    content: '';
+  }
+
+  .site-notice__main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(14rem, 0.75fr);
+    gap: clamp(1.5rem, 5vw, 3rem);
+    padding: clamp(1.5rem, 4vw, 2.25rem) 0;
+  }
+
   .site-notice__dialog h2 {
-    margin: 0 0 1rem;
-    font-size: clamp(1.65rem, 7vw, 2.25rem);
-    line-height: 1.1;
+    margin: 0 0 1.25rem;
+    max-width: 14ch;
+    font-size: clamp(1.85rem, 5vw, 2.65rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
   }
 
   .site-notice__intro {
-    color: #ddd;
+    max-width: 38ch;
+    color: #d4d4d4;
+    font-size: 1rem;
   }
 
   .site-notice__workshop-note {
-    color: #bbb;
+    padding: 0.15rem 0 0.15rem 1rem;
+    border-left: 2px solid var(--accent);
+    color: #aaa;
     font-size: 0.9rem;
   }
 
   .site-notice__schedule {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    border-radius: 0.75rem;
-    background: rgb(255 255 255 / 6%);
+    align-self: start;
+    border-top: 2px solid var(--accent);
   }
 
   .site-notice__schedule h3,
   .site-notice__commercial h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.15rem;
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
-  .site-notice__schedule .site-notice__period {
-    margin-bottom: 0.75rem;
+  .site-notice__schedule h3 {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line);
     color: var(--accent);
-    font-weight: 700;
+  }
+
+  .site-notice__schedule-lines p {
+    margin: 0;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--line);
+    color: #ddd;
+    font-size: 0.9rem;
   }
 
   .site-notice__schedule p:last-child,
@@ -213,14 +261,22 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   .site-notice__commercial {
-    padding-top: 0.25rem;
-    border-top: 1px solid rgb(255 255 255 / 12%);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .site-notice__commercial h3 {
+    margin-bottom: 0.65rem;
+    font-size: 1rem;
   }
 
   .site-notice__actions {
     display: flex;
     gap: 0.75rem;
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
   }
 
   .site-notice__actions a,
@@ -231,7 +287,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
     align-items: center;
     justify-content: center;
     padding: 0.65rem 1rem;
-    border-radius: 0.75rem;
+    border-radius: 2px;
     font: inherit;
     font-weight: 800;
     line-height: 1.25;
@@ -246,11 +302,12 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   .site-notice__actions a:hover {
+    border-color: #ff9a40;
     background: #ff9a40;
   }
 
   .site-notice__actions button {
-    border: 1px solid rgb(255 255 255 / 30%);
+    border: 1px solid var(--line);
     background: transparent;
     color: #f5f5f5;
   }
@@ -267,6 +324,11 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   @media (max-width: 32rem) {
+    .site-notice__main {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
     .site-notice__actions {
       flex-direction: column;
     }
@@ -279,7 +341,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
 
     .site-notice__dialog {
       max-height: calc(100dvh - 1.5rem);
-      padding: 1.25rem;
+      padding: 1.1rem;
     }
   }
 </style>
