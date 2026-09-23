@@ -6,128 +6,120 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
 
 {
   siteNotice.enabled && (
-    <div class="site-notice" data-site-notice data-storage-key={storageKey} hidden>
-      <div class="site-notice__overlay">
-        <section
-          class="site-notice__dialog"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="site-notice-title"
-          tabindex="-1"
-        >
-          <header class="site-notice__header">
-            <p class="site-notice__eyebrow">{siteNotice.eyebrow}</p>
-            <button class="site-notice__close" type="button" aria-label="Cerrar aviso" data-site-notice-close>
-              <span aria-hidden="true">×</span>
-            </button>
-          </header>
+    <aside
+      class="site-notice"
+      role="complementary"
+      aria-label="Asistencia técnica"
+      data-site-notice
+      data-storage-key={storageKey}
+      hidden
+    >
+      <header class="site-notice__header">
+        <p class="site-notice__eyebrow">{siteNotice.eyebrow}</p>
+        <button class="site-notice__close" type="button" aria-label="Cerrar aviso" data-site-notice-close>
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
 
-          <div class="site-notice__content">
-            <h2 id="site-notice-title">{siteNotice.title}</h2>
-            <p class="site-notice__intro">{siteNotice.intro}</p>
+      <div class="site-notice__content">
+        <h2>{siteNotice.title}</h2>
+        <p class="site-notice__intro">{siteNotice.intro}</p>
 
-            <div class="site-notice__actions">
-              <a class="site-notice__primary" href={siteNotice.primaryCta.href} data-site-notice-cta data-site-notice-link>
-                {siteNotice.primaryCta.label}
-              </a>
-              <a class="site-notice__text-link" href={siteNotice.secondaryCta.href} data-site-notice-link>
-                {siteNotice.secondaryCta.label} <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="site-notice__schedule-link">
-            <h3>{siteNotice.schedule.title}</h3>
-            <a class="site-notice__text-link" href={siteNotice.schedule.href} data-site-notice-link>
-              {siteNotice.schedule.linkLabel} <span aria-hidden="true">→</span>
-            </a>
-          </div>
-
-          <button class="site-notice__dismiss" type="button" data-site-notice-close>
-            {siteNotice.dismissLabel}
-          </button>
-        </section>
+        <div class="site-notice__actions">
+          <a class="site-notice__primary" href={siteNotice.primaryCta.href} data-site-notice-cta data-site-notice-link>
+            {siteNotice.primaryCta.label}
+          </a>
+          <a class="site-notice__text-link" href={siteNotice.secondaryCta.href} data-site-notice-link>
+            {siteNotice.secondaryCta.label} <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
-    </div>
+
+      <div class="site-notice__schedule-link">
+        <h3>{siteNotice.schedule.title}</h3>
+        <a class="site-notice__text-link" href={siteNotice.schedule.href} data-site-notice-link>
+          {siteNotice.schedule.linkLabel} <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <button class="site-notice__dismiss" type="button" data-site-notice-close>
+        {siteNotice.dismissLabel}
+      </button>
+    </aside>
   )
 }
 
 <script>
+  const APPEARANCE_DELAY = 3000;
   const notice = document.querySelector<HTMLElement>('[data-site-notice]');
-  const dialog = notice?.querySelector<HTMLElement>('.site-notice__dialog');
   const closeButtons = notice?.querySelectorAll<HTMLButtonElement>('[data-site-notice-close]');
   const navigationLinks = notice?.querySelectorAll<HTMLAnchorElement>('[data-site-notice-link]');
   const storageKey = notice?.dataset.storageKey;
 
-  if (notice && dialog && closeButtons?.length && navigationLinks?.length && storageKey) {
+  if (notice && closeButtons?.length && navigationLinks?.length && storageKey) {
     if (sessionStorage.getItem(storageKey) === 'true') {
       notice.remove();
     } else {
-      const backgroundElements = [...document.body.children].filter(
-        (element): element is HTMLElement =>
-          element instanceof HTMLElement && element !== notice && !element.hasAttribute('inert'),
-      );
-
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       const markAsViewed = () => sessionStorage.setItem(storageKey, 'true');
-      const closeNotice = () => {
-        markAsViewed();
-        document.body.classList.remove('site-notice-open');
-        backgroundElements.forEach((element) => element.removeAttribute('inert'));
+      const removeNotice = () => {
         document.removeEventListener('keydown', handleKeydown);
         notice.remove();
+      };
+      const closeNotice = () => {
+        markAsViewed();
+
+        if (notice.hidden || reducedMotion.matches) {
+          removeNotice();
+          return;
+        }
+
+        notice.classList.remove('is-visible');
+        notice.addEventListener('transitionend', (event) => {
+          if (event.propertyName === 'transform') removeNotice();
+        });
       };
       const handleKeydown = (event: KeyboardEvent) => {
         if (event.key === 'Escape') closeNotice();
       };
 
-      notice.hidden = false;
-      document.body.classList.add('site-notice-open');
-      backgroundElements.forEach((element) => element.setAttribute('inert', ''));
-      dialog.focus();
-
       navigationLinks.forEach((link) => link.addEventListener('click', markAsViewed));
       closeButtons.forEach((button) => button.addEventListener('click', closeNotice));
-      document.addEventListener('keydown', handleKeydown);
+
+      window.setTimeout(() => {
+        notice.hidden = false;
+        window.requestAnimationFrame(() => notice.classList.add('is-visible'));
+        document.addEventListener('keydown', handleKeydown);
+      }, APPEARANCE_DELAY);
     }
   }
 </script>
 
 <style>
-  :global(body.site-notice-open) {
-    overflow: hidden;
-  }
-
   .site-notice {
     position: fixed;
-    inset: 0;
+    right: clamp(1rem, 2vw, 2rem);
+    bottom: clamp(1rem, 2vw, 2rem);
     z-index: 10000;
-  }
-
-  .site-notice__overlay {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    place-items: center;
-    overflow-y: auto;
-    padding: clamp(0.75rem, 2.5vw, 1.5rem);
-    background: rgb(0 0 0 / 78%);
-  }
-
-  .site-notice__dialog {
-    width: min(calc(100vw - clamp(1.5rem, 5vw, 3rem)), 42rem);
-    max-height: calc(100dvh - clamp(1.5rem, 5vw, 3rem));
+    width: min(24rem, calc(100vw - 2rem));
+    max-height: 74dvh;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: clamp(1rem, 2vw, 1.35rem);
     border: 1px solid var(--line);
     border-radius: 2px;
     background: #0b0b0b;
     color: #f5f5f5;
-    text-align: left;
+    opacity: 0;
+    transform: translateX(calc(100% + 2rem));
+    transition:
+      opacity 260ms ease,
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .site-notice__dialog:focus {
-    outline: none;
+  .site-notice.is-visible {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .site-notice__header {
@@ -135,18 +127,18 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding-bottom: clamp(0.65rem, 2vh, 0.9rem);
+    padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--line);
   }
 
   .site-notice__eyebrow {
     position: relative;
     margin: 0;
-    padding-left: 0.75rem;
+    padding-left: 0.7rem;
     color: var(--accent);
-    font-size: clamp(0.65rem, 1.8vw, 0.75rem);
+    font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     line-height: 1.35;
     text-transform: uppercase;
   }
@@ -161,9 +153,9 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
 
   .site-notice__close {
     display: inline-flex;
-    width: 2.75rem;
-    min-width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
     align-items: center;
     justify-content: center;
     padding: 0;
@@ -172,7 +164,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
     background: transparent;
     color: #ddd;
     font: inherit;
-    font-size: 1.65rem;
+    font-size: 1.55rem;
     line-height: 1;
     cursor: pointer;
   }
@@ -184,44 +176,43 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   .site-notice__content {
-    padding: clamp(1rem, 3.5vh, 1.75rem) 0;
+    padding: 1rem 0 1.15rem;
   }
 
-  .site-notice__dialog h2 {
+  .site-notice h2 {
     max-width: 17ch;
-    margin: 0 0 clamp(0.75rem, 2vh, 1rem);
-    font-size: clamp(2rem, 5vw, 3rem);
-    line-height: 1.02;
-    letter-spacing: -0.035em;
+    margin: 0 0 0.7rem;
+    font-size: clamp(1.65rem, 3vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
   }
 
   .site-notice__intro {
-    max-width: 60ch;
     margin: 0;
     color: #d4d4d4;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    line-height: 1.55;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
   .site-notice__actions {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-top: clamp(1rem, 3vh, 1.5rem);
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1rem;
   }
 
   .site-notice__primary {
     display: inline-flex;
-    min-height: 3rem;
+    min-height: 2.85rem;
     align-items: center;
     justify-content: center;
-    padding: 0.7rem 1.15rem;
+    padding: 0.65rem 1rem;
     border: 1px solid var(--accent);
     border-radius: 2px;
     background: var(--accent);
     color: #111;
     font-weight: 850;
     line-height: 1.2;
+    text-align: center;
     text-decoration: none;
   }
 
@@ -231,6 +222,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   .site-notice__text-link {
+    width: fit-content;
     color: #ddd;
     font-weight: 750;
     text-underline-offset: 0.25em;
@@ -246,26 +238,26 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   .site-notice__schedule-link {
-    padding: clamp(0.9rem, 2.5vh, 1.25rem) 0;
+    padding: 0.85rem 0;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
 
   .site-notice__schedule-link h3 {
-    margin: 0 0 0.45rem;
-    font-size: 1rem;
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
     line-height: 1.3;
   }
 
   .site-notice__dismiss {
-    min-height: 2.75rem;
-    margin-top: clamp(0.5rem, 1.5vh, 0.75rem);
-    padding: 0.5rem 0;
+    min-height: 2.5rem;
+    margin-top: 0.35rem;
+    padding: 0.4rem 0;
     border: 0;
     background: transparent;
     color: #aaa;
     font: inherit;
-    font-size: 0.875rem;
+    font-size: 0.82rem;
     text-decoration: underline;
     text-underline-offset: 0.25em;
     cursor: pointer;
@@ -283,75 +275,54 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
     outline-offset: 3px;
   }
 
-  @media (max-width: 30rem) {
+  @media (max-width: 640px) {
+    .site-notice {
+      right: 1rem;
+      bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+      left: 1rem;
+      width: auto;
+      max-height: 72dvh;
+      padding: 0.85rem 1rem;
+      transform: translateY(calc(100% + 2rem));
+    }
+
+    .site-notice.is-visible {
+      transform: translateY(0);
+    }
+
+    .site-notice__content {
+      padding-block: 0.8rem 0.9rem;
+    }
+
+    .site-notice h2 {
+      font-size: clamp(1.45rem, 7vw, 1.8rem);
+    }
+
+    .site-notice__intro {
+      font-size: 0.84rem;
+      line-height: 1.42;
+    }
+
     .site-notice__actions {
-      align-items: stretch;
-      flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.65rem;
+      margin-top: 0.8rem;
     }
 
     .site-notice__primary {
       width: 100%;
     }
 
-    .site-notice__text-link {
-      align-self: flex-start;
-      min-height: 2.75rem;
-      padding: 0.65rem 0;
-    }
-  }
-
-  @media (max-height: 700px) {
-    .site-notice__dialog {
-      padding-block: clamp(0.75rem, 2.5vh, 1.25rem);
-    }
-
-    .site-notice__content {
-      padding-block: clamp(0.75rem, 2.5vh, 1.15rem);
-    }
-
-    .site-notice__dialog h2 {
-      margin-bottom: 0.65rem;
-      font-size: clamp(1.8rem, 4.5vw, 2.5rem);
-    }
-
-    .site-notice__actions {
-      margin-top: 0.8rem;
-    }
-
     .site-notice__schedule-link {
       padding-block: 0.7rem;
     }
-
-    .site-notice__dismiss {
-      margin-top: 0.25rem;
-    }
   }
 
-  @media (max-height: 600px) {
-    .site-notice__overlay {
-      padding-block: 0.5rem;
-    }
-
-    .site-notice__dialog {
-      max-height: calc(100dvh - 1rem);
-      padding-block: 0.65rem;
-    }
-
-    .site-notice__header {
-      padding-bottom: 0.4rem;
-    }
-
-    .site-notice__content {
-      padding-block: 0.6rem;
-    }
-
-    .site-notice__dialog h2 {
-      font-size: clamp(1.7rem, 4.5vw, 2.15rem);
-    }
-
-    .site-notice__intro {
-      line-height: 1.4;
+  @media (prefers-reduced-motion: reduce) {
+    .site-notice,
+    .site-notice.is-visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
   }
 </style>
