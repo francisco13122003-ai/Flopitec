@@ -27,7 +27,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
             <p class="site-notice__intro">{siteNotice.intro}</p>
 
             <div class="site-notice__actions">
-              <a class="site-notice__primary" href={siteNotice.primaryCta.href} data-site-notice-link>
+              <a class="site-notice__primary" href={siteNotice.primaryCta.href} data-site-notice-cta data-site-notice-link>
                 {siteNotice.primaryCta.label}
               </a>
               <a class="site-notice__text-link" href={siteNotice.secondaryCta.href} data-site-notice-link>
