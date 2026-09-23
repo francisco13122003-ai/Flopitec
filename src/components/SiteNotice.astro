@@ -27,10 +27,10 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
             <p class="site-notice__intro">{siteNotice.intro}</p>
 
             <div class="site-notice__actions">
-              <a class="site-notice__primary" href={siteNotice.primaryCta.href} data-site-notice-cta>
+              <a class="site-notice__primary" href={siteNotice.primaryCta.href} data-site-notice-cta data-site-notice-link>
                 {siteNotice.primaryCta.label}
               </a>
-              <a class="site-notice__text-link" href={siteNotice.secondaryCta.href}>
+              <a class="site-notice__text-link" href={siteNotice.secondaryCta.href} data-site-notice-link>
                 {siteNotice.secondaryCta.label} <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -38,7 +38,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
 
           <div class="site-notice__schedule-link">
             <h3>{siteNotice.schedule.title}</h3>
-            <a class="site-notice__text-link" href={siteNotice.schedule.href}>
+            <a class="site-notice__text-link" href={siteNotice.schedule.href} data-site-notice-link>
               {siteNotice.schedule.linkLabel} <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -56,10 +56,10 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   const notice = document.querySelector<HTMLElement>('[data-site-notice]');
   const dialog = notice?.querySelector<HTMLElement>('.site-notice__dialog');
   const closeButtons = notice?.querySelectorAll<HTMLButtonElement>('[data-site-notice-close]');
-  const primaryCta = notice?.querySelector<HTMLAnchorElement>('[data-site-notice-cta]');
+  const navigationLinks = notice?.querySelectorAll<HTMLAnchorElement>('[data-site-notice-link]');
   const storageKey = notice?.dataset.storageKey;
 
-  if (notice && dialog && closeButtons?.length && primaryCta && storageKey) {
+  if (notice && dialog && closeButtons?.length && navigationLinks?.length && storageKey) {
     if (sessionStorage.getItem(storageKey) === 'true') {
       notice.remove();
     } else {
@@ -85,7 +85,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
       backgroundElements.forEach((element) => element.setAttribute('inert', ''));
       dialog.focus();
 
-      primaryCta.addEventListener('click', markAsViewed);
+      navigationLinks.forEach((link) => link.addEventListener('click', markAsViewed));
       closeButtons.forEach((button) => button.addEventListener('click', closeNotice));
       document.addEventListener('keydown', handleKeydown);
     }
@@ -231,9 +231,14 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
   }
 
   .site-notice__text-link {
-    color: var(--accent);
+    color: #ddd;
     font-weight: 750;
     text-underline-offset: 0.25em;
+  }
+
+  .site-notice__text-link span,
+  .site-notice__text-link:hover {
+    color: var(--accent);
   }
 
   .site-notice__text-link:not(:hover) {
