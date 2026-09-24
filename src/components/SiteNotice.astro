@@ -83,7 +83,7 @@ const storageKey = `flopitec-site-notice-${siteNotice.id}`;
         if (event.key === 'Escape') closeNotice();
       };
 
-      navigationLinks.forEach((link) => link.addEventListener('click', markAsViewed));
+      navigationLinks.forEach((link) => link.addEventListener('click', closeNotice));
       closeButtons.forEach((button) => button.addEventListener('click', closeNotice));
 
       window.setTimeout(() => {
