@@ -1,0 +1,33 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: string;
+}
+const { label, title, description, image, imageAlt = '', imagePosition = 'center 65%' } = Astro.props;
+---
+<header class:list={['page-intro', 'page-masthead', { 'page-masthead--illustrated': image }]}>
+  <div class="container page-masthead__grid">
+    <div class="page-masthead__copy">
+      <p class="page-label">{label}</p>
+      <h1>{title}</h1>
+      <p class="page-intro__lede">{description}</p>
+      {Astro.slots.has('default') && <div class="page-masthead__links"><slot /></div>}
+    </div>
+    {image && <figure class="page-masthead__media">
+      <img src={image} alt={imageAlt} width="720" height="540" loading="eager" decoding="async" fetchpriority="high" style={{ objectPosition: imagePosition }} />
+    </figure>}
+  </div>
+</header>
+<style>
+  .page-masthead__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem;align-items:center}
+  .page-masthead__copy{min-width:0}
+  .page-masthead__links{margin-top:1.5rem}
+  .page-masthead__media{margin:0;border-left:3px solid var(--accent);overflow:hidden;background:#202326}
+  .page-masthead__media img{display:block;width:100%;height:clamp(13rem,24vw,21rem);object-fit:cover}
+  @media(min-width:960px){.page-masthead--illustrated .page-masthead__grid{grid-template-columns:minmax(0,1fr) minmax(17rem,.46fr);gap:clamp(2rem,4vw,3.5rem)}}
+  @media(max-width:959px){.page-masthead__media img{height:clamp(10rem,27vw,16rem)}}
+</style>

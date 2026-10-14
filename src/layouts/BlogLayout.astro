@@ -1,6 +1,28 @@
 ---
-import BaseLayout from './BaseLayout.astro'; import Breadcrumbs from '@/components/Breadcrumbs.astro'; import CTASection from '@/components/CTASection.astro'; import { site } from '@/data/site';
-const { post } = Astro.props; const path = `/blog/${post.slug}/`; const jsonLd=[{'@context':'https://schema.org','@type':'Article',headline:post.title,description:post.description,author:{'@type':'Organization',name:'Flopitec Servicios Informáticos'},publisher:{'@type':'Organization',name:'Flopitec Servicios Informáticos'},mainEntityOfPage:site.siteUrl+path}];
+import BaseLayout from './BaseLayout.astro'; import PageIntro from '@/components/PageIntro.astro'; import Breadcrumbs from '@/components/Breadcrumbs.astro'; import CTASection from '@/components/CTASection.astro'; import { site } from '@/data/site';
+const { post, headings = [] } = Astro.props;
+const contents = headings.filter((heading: { depth: number }) => heading.depth === 2); const path = `/blog/${post.slug}/`; const jsonLd=[{'@context':'https://schema.org','@type':'Article',headline:post.title,description:post.description,author:{'@type':'Organization',name:'Flopitec Servicios Informáticos'},publisher:{'@type':'Organization',name:'Flopitec Servicios Informáticos'},mainEntityOfPage:site.siteUrl+path}];
 ---
-<BaseLayout title={`${post.title} | Blog Flopitec`} description={post.description} path={path} jsonLd={jsonLd}><Breadcrumbs items={[{label:'Blog',href:'/blog/'},{label:post.title,href:path}]}/><article><header class="page-intro"><div class="container article-head"><p class="page-label">Blog Flopitec · Guía práctica</p><h1>{post.title}</h1><p class="page-intro__lede">{post.description}</p></div></header><div class="container article-body prose-editorial"><slot/></div></article><CTASection title="¿Quieres que revisemos tu caso?"/></BaseLayout>
-<style>.article-head{max-width:64rem}.article-head h1{max-width:18ch}.article-body{max-width:48rem;padding-top:clamp(3rem,7vw,6rem);padding-bottom:clamp(3rem,7vw,6rem)}.article-body :global(img){display:block;width:100%;height:auto;margin:2rem 0;border-radius:2px}.article-body :global(blockquote){margin:2rem 0;padding-left:1.2rem;border-left:3px solid var(--accent);color:var(--muted)}</style>
+<BaseLayout title={`${post.title} | Blog Flopitec`} description={post.description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{label:'Blog',href:'/blog/'},{label:post.title,href:path}]}/>
+  <article>
+    <PageIntro label="Blog Flopitec · Guía práctica" title={post.title} description={post.description} image={post.image} imagePosition="65% 78%" />
+    <div class:list={['container', 'reading-layout', { 'reading-layout--with-index': contents.length > 1 }]}>
+      {contents.length > 1 && <aside class="reading-index"><nav aria-labelledby="reading-index-title"><p id="reading-index-title">En esta guía</p><ol>{contents.map((heading: { slug: string; text: string }) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></nav></aside>}
+      <div class="article-body prose-editorial"><slot/></div>
+    </div>
+  </article>
+  <CTASection title="¿Quieres que revisemos tu caso?"/>
+</BaseLayout>
+<style>
+  .reading-layout{padding-block:clamp(2.5rem,5vw,4.5rem);max-width:72rem}
+  .article-body{min-width:0;max-width:46rem;margin-inline:auto}
+  .article-body :global(img){display:block;width:100%;height:auto;margin:2rem 0;border-radius:0}
+  .article-body :global(blockquote){margin:2rem 0;padding:1rem 1.3rem;border-left:3px solid var(--accent);background:#202326;color:var(--muted)}
+  .reading-index{min-width:0;margin-bottom:2rem}
+  .reading-index nav{padding:1.25rem;border-top:2px solid var(--accent);background:#1b1e21}
+  .reading-index p{margin:0;color:#e7e8e9;font-size:.95rem;font-weight:600}
+  .reading-index ol{display:grid;gap:.85rem;margin:1rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.86rem;line-height:1.55}
+  .reading-index a{text-decoration:none}.reading-index a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:.2em}
+  @media(min-width:1000px){.reading-layout--with-index{display:grid;grid-template-columns:minmax(0,.58fr) minmax(0,1.5fr);gap:clamp(2rem,4vw,4rem);align-items:start}.reading-index{position:sticky;top:7rem;margin:0}}
+</style>

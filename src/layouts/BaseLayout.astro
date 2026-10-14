@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import '@/styles/interior.css';
 import Header from '@/components/Header.astro'; import Footer from '@/components/Footer.astro'; import JsonLd from '@/components/JsonLd.astro'; import PageBackground from '@/components/PageBackground.astro'; import ScrollReveal from '@/components/ScrollReveal.astro';
 import SiteNotice from '@/components/SiteNotice.astro';
 import { site } from '@/data/site'; import { business } from '@/data/business';
@@ -30,4 +31,4 @@ const localBusiness = {'@context':'https://schema.org','@type':['LocalBusiness',
   rel="apple-touch-icon"
   sizes="180x180"
   href="/apple-touch-icon.png"
-/><JsonLd data={localBusiness}/>{jsonLd.map((data)=><JsonLd data={data}/>) }<ScrollReveal/></head><body><PageBackground desktopImage={pageBackgroundDesktop} mobileImage={pageBackgroundMobile}/><a href="#contenido" class="skip-link">Saltar al contenido</a><div class="site-shell"><Header/><main id="contenido"><slot/></main><Footer/></div><SiteNotice/></body></html>
+/><JsonLd data={localBusiness}/>{jsonLd.map((data)=><JsonLd data={data}/>) }<ScrollReveal/></head><body data-page={path === '/' ? 'home' : 'interior'}><PageBackground desktopImage={pageBackgroundDesktop} mobileImage={pageBackgroundMobile}/><a href="#contenido" class="skip-link">Saltar al contenido</a><div class="site-shell"><Header/><main id="contenido"><slot/></main><Footer/></div><SiteNotice/></body></html>
